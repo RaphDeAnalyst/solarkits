@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with the Solarkits team. We'd love to hear from you!">
+    <title>Contact Us - Solarkits</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav__logo">
+                    <a href="../index.html" class="logo">
+                        <svg class="logo__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                            <path d="M6 6h4v4H6zM14 6h4v4h-4zM6 12h4v4H6zM14 12h4v4h-4z"/>
+                        </svg>
+                        <span class="logo__text">solarkits</span>
+                    </a>
+                </div>
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="../index.html" class="nav__link">Home</a></li>
+                        <li class="nav__item"><a href="../index.html#categories" class="nav__link">Categories</a></li>
+                        <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="contact.html" class="nav__link nav__link--active">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="nav__toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="hero" style="padding: 3rem 0;">
+            <div class="container">
+                <h1 class="hero__title">Contact Us</h1>
+                <p class="hero__description">
+                    Have a question or suggestion? We'd love to hear from you!
+                </p>
+            </div>
+        </section>
+
+        <section style="padding: 4rem 0;">
+            <div class="container" style="max-width: 700px;">
+                <form id="contact-form" style="background: white; padding: 2.5rem; border-radius: 12px; box-shadow: var(--shadow-md);">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-text);">
+                            Name *
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            style="width: 100%; padding: 0.75rem; border: 2px solid var(--color-border); border-radius: var(--radius-sm); font-size: 1rem; transition: border-color var(--transition-base);"
+                            onfocus="this.style.borderColor='var(--color-primary)'"
+                            onblur="this.style.borderColor='var(--color-border)'">
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-text);">
+                            Email *
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            style="width: 100%; padding: 0.75rem; border: 2px solid var(--color-border); border-radius: var(--radius-sm); font-size: 1rem; transition: border-color var(--transition-base);"
+                            onfocus="this.style.borderColor='var(--color-primary)'"
+                            onblur="this.style.borderColor='var(--color-border)'">
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="subject" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-text);">
+                            Subject *
+                        </label>
+                        <select
+                            id="subject"
+                            name="subject"
+                            required
+                            style="width: 100%; padding: 0.75rem; border: 2px solid var(--color-border); border-radius: var(--radius-sm); font-size: 1rem; transition: border-color var(--transition-base); background: white;"
+                            onfocus="this.style.borderColor='var(--color-primary)'"
+                            onblur="this.style.borderColor='var(--color-border)'">
+                            <option value="">Select a subject...</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="product">Product Suggestion</option>
+                            <option value="partnership">Partnership Opportunity</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="support">Technical Support</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-text);">
+                            Message *
+                        </label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="6"
+                            required
+                            style="width: 100%; padding: 0.75rem; border: 2px solid var(--color-border); border-radius: var(--radius-sm); font-size: 1rem; resize: vertical; transition: border-color var(--transition-base); font-family: inherit;"
+                            onfocus="this.style.borderColor='var(--color-primary)'"
+                            onblur="this.style.borderColor='var(--color-border)'"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary" style="width: 100%; font-size: 1.125rem;">
+                        Send Message
+                    </button>
+
+                    <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-light); text-align: center;">
+                        We typically respond within 24-48 hours.
+                    </p>
+                </form>
+
+                <div style="margin-top: 3rem; text-align: center; background: var(--color-bg-secondary); padding: 2rem; border-radius: 12px;">
+                    <h3 style="margin-bottom: 1rem; color: var(--color-text);">Other Ways to Reach Us</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                        <p style="color: var(--color-text-light);">
+                            <strong>Email:</strong> <a href="mailto:contact@solarkits.com" style="color: var(--color-primary);">contact@solarkits.com</a>
+                        </p>
+                        <p style="color: var(--color-text-light);">
+                            <strong>Business Inquiries:</strong> <a href="mailto:business@solarkits.com" style="color: var(--color-primary);">business@solarkits.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__column">
+                    <div class="footer__logo">
+                        <svg class="logo__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                            <path d="M6 6h4v4H6zM14 6h4v4h-4zM6 12h4v4H6zM14 12h4v4h-4z"/>
+                        </svg>
+                        <span class="logo__text">solarkits</span>
+                    </div>
+                    <p class="footer__description">
+                        Your trusted source for solar energy products and solutions.
+                        Powering homes and lives with clean, reliable solar energy.
+                    </p>
+                </div>
+                <div class="footer__column">
+                    <h3 class="footer__title">Quick Links</h3>
+                    <ul class="footer__links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../index.html#categories">Categories</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer__column">
+                    <h3 class="footer__title">Legal</h3>
+                    <ul class="footer__links">
+                        <li><a href="disclaimer.html">Affiliate Disclaimer</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2025 Solarkits. All rights reserved.</p>
+                <p class="footer__disclaimer">
+                    As an Amazon Associate and AliExpress affiliate, we earn from qualifying purchases.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <script src="../js/main.js" defer></script>
+    <script>
+        // Contact form handler
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // TODO: Integrate with actual form service (Netlify Forms, Formspree, etc.)
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            console.log('Contact form submitted:', data);
+
+            // Show success message
+            alert('Thank you for your message! We\'ll get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

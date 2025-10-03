@@ -1,0 +1,680 @@
+{
+  "products": [
+    {
+      "id": "sk-001",
+      "name": "EnginStar 40W Foldable Solar Panel with USB & DC Output",
+      "category": "solar-kits",
+      "tags": [
+        "featured",
+        "bestseller",
+        "home-system"
+      ],
+      "image": {
+        "thumb": "images/products/Panel.webp",
+        "gallery": [
+          "images/products/Panel.webp",
+          "images/products/Se22ad44b3a0844c0b1f58544b637fc809.jpg_220x220q75.jpg_.avif",
+          "images/products/1759490313975-762402612.jpg"
+        ]
+      },
+      "price": {
+        "amount": 3499.99,
+        "currency": "USD",
+        "display": "Starting at $3,499"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amzn.to/4mXclmg",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/complete-home-solar-kit-5kw",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-15",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": true
+      }
+    },
+    {
+      "id": "sk-002",
+      "name": "Portable Solar Panel Kit 200W Foldable with Charge Controller",
+      "category": "solar-kits",
+      "tags": [
+        "portable",
+        "camping",
+        "off-grid"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=200W+Portable+Solar",
+        "gallery": [
+          "https://via.placeholder.com/800x600/4CAF50/FFFFFF?text=200W+Portable+Solar",
+          "https://via.placeholder.com/800x600/4CAF50/FFFFFF?text=200W+Portable+Solar",
+          "https://via.placeholder.com/800x600/4CAF50/FFFFFF?text=200W+Portable+Solar"
+        ]
+      },
+      "price": {
+        "amount": 299.99,
+        "currency": "USD",
+        "display": "Starting at $299"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/portable-solar-panel-200w",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/portable-solar-panel-200w",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-20",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": true
+      }
+    },
+    {
+      "id": "sk-003",
+      "name": "Small Business Solar Power System 10kW Grid-Tie",
+      "category": "solar-kits",
+      "tags": [
+        "business",
+        "grid-tie",
+        "commercial"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=10kW+Business+Solar",
+        "gallery": [
+          "https://via.placeholder.com/800x600/2196F3/FFFFFF?text=10kW+Business+Solar",
+          "https://via.placeholder.com/800x600/2196F3/FFFFFF?text=10kW+Business+Solar",
+          "https://via.placeholder.com/800x600/2196F3/FFFFFF?text=10kW+Business+Solar"
+        ]
+      },
+      "price": {
+        "amount": 7999.99,
+        "currency": "USD",
+        "display": "Starting at $7,999"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/business-solar-system-10kw",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/business-solar-system-10kw",
+          "available": false
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-18",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "sa-001",
+      "name": "Deep Cycle Solar Battery 12V 200Ah Lithium",
+      "category": "solar-accessories",
+      "tags": [
+        "battery",
+        "lithium",
+        "storage"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/9C27B0/FFFFFF?text=Solar+Battery+200Ah",
+        "gallery": [
+          "https://via.placeholder.com/800x600/9C27B0/FFFFFF?text=Solar+Battery+200Ah",
+          "https://via.placeholder.com/800x600/9C27B0/FFFFFF?text=Solar+Battery+200Ah",
+          "https://via.placeholder.com/800x600/9C27B0/FFFFFF?text=Solar+Battery+200Ah"
+        ]
+      },
+      "price": {
+        "amount": 899.99,
+        "currency": "USD",
+        "display": "Starting at $899"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-battery-12v-200ah",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-battery-12v-200ah",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-22",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": true
+      }
+    },
+    {
+      "id": "sa-002",
+      "name": "Pure Sine Wave Solar Inverter 3000W 24V to 120V",
+      "category": "solar-accessories",
+      "tags": [
+        "inverter",
+        "pure-sine",
+        "3000w"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/FF5722/FFFFFF?text=3000W+Inverter",
+        "gallery": [
+          "https://via.placeholder.com/800x600/FF5722/FFFFFF?text=3000W+Inverter",
+          "https://via.placeholder.com/800x600/FF5722/FFFFFF?text=3000W+Inverter",
+          "https://via.placeholder.com/800x600/FF5722/FFFFFF?text=3000W+Inverter"
+        ]
+      },
+      "price": {
+        "amount": 449.99,
+        "currency": "USD",
+        "display": "Starting at $449"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-inverter-3000w-pure-sine",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-inverter-3000w-pure-sine",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-25",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "sa-003",
+      "name": "MPPT Solar Charge Controller 60A 12V/24V Auto",
+      "category": "solar-accessories",
+      "tags": [
+        "mppt",
+        "controller",
+        "60a"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/795548/FFFFFF?text=MPPT+Controller+60A",
+        "gallery": [
+          "https://via.placeholder.com/800x600/795548/FFFFFF?text=MPPT+Controller+60A",
+          "https://via.placeholder.com/800x600/795548/FFFFFF?text=MPPT+Controller+60A",
+          "https://via.placeholder.com/800x600/795548/FFFFFF?text=MPPT+Controller+60A"
+        ]
+      },
+      "price": {
+        "amount": 179.99,
+        "currency": "USD",
+        "display": "Starting at $179"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/mppt-solar-controller-60a",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/mppt-solar-controller-60a",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-27",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "sa-004",
+      "name": "Solar Panel Extension Cable 10AWG 50ft MC4 Connectors",
+      "category": "solar-accessories",
+      "tags": [
+        "cables",
+        "mc4",
+        "extension"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/607D8B/FFFFFF?text=Solar+Cable+50ft",
+        "gallery": [
+          "https://via.placeholder.com/800x600/607D8B/FFFFFF?text=Solar+Cable+50ft",
+          "https://via.placeholder.com/800x600/607D8B/FFFFFF?text=Solar+Cable+50ft",
+          "https://via.placeholder.com/800x600/607D8B/FFFFFF?text=Solar+Cable+50ft"
+        ]
+      },
+      "price": {
+        "amount": 39.99,
+        "currency": "USD",
+        "display": "Starting at $39"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-cable-mc4-50ft",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-cable-mc4-50ft",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-28",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "he-001",
+      "name": "Solar LED Bulb Kit 5 Lights with Remote Control",
+      "category": "home-energy",
+      "tags": [
+        "led",
+        "lighting",
+        "home"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/00BCD4/FFFFFF?text=Solar+LED+Bulbs",
+        "gallery": [
+          "https://via.placeholder.com/800x600/00BCD4/FFFFFF?text=Solar+LED+Bulbs",
+          "https://via.placeholder.com/800x600/00BCD4/FFFFFF?text=Solar+LED+Bulbs",
+          "https://via.placeholder.com/800x600/00BCD4/FFFFFF?text=Solar+LED+Bulbs"
+        ]
+      },
+      "price": {
+        "amount": 89.99,
+        "currency": "USD",
+        "display": "Starting at $89"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-led-bulb-kit-5",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-led-bulb-kit-5",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-23",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": true
+      }
+    },
+    {
+      "id": "he-002",
+      "name": "Solar Powered Ceiling Fan 12V DC with Battery Backup",
+      "category": "home-energy",
+      "tags": [
+        "fan",
+        "cooling",
+        "dc"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/E91E63/FFFFFF?text=Solar+Fan",
+        "gallery": [
+          "https://via.placeholder.com/800x600/E91E63/FFFFFF?text=Solar+Fan",
+          "https://via.placeholder.com/800x600/E91E63/FFFFFF?text=Solar+Fan",
+          "https://via.placeholder.com/800x600/E91E63/FFFFFF?text=Solar+Fan"
+        ]
+      },
+      "price": {
+        "amount": 149.99,
+        "currency": "USD",
+        "display": "Starting at $149"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-ceiling-fan-12v",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-ceiling-fan-12v",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-24",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "he-003",
+      "name": "Solar Water Pump Kit Submersible 12V for Wells & Ponds",
+      "category": "home-energy",
+      "tags": [
+        "pump",
+        "water",
+        "submersible"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/3F51B5/FFFFFF?text=Solar+Water+Pump",
+        "gallery": [
+          "https://via.placeholder.com/800x600/3F51B5/FFFFFF?text=Solar+Water+Pump",
+          "https://via.placeholder.com/800x600/3F51B5/FFFFFF?text=Solar+Water+Pump",
+          "https://via.placeholder.com/800x600/3F51B5/FFFFFF?text=Solar+Water+Pump"
+        ]
+      },
+      "price": {
+        "amount": 199.99,
+        "currency": "USD",
+        "display": "Starting at $199"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-water-pump-12v",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-water-pump-12v",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-26",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "he-004",
+      "name": "Solar Refrigerator 12V DC 110L Energy Efficient",
+      "category": "home-energy",
+      "tags": [
+        "refrigerator",
+        "appliance",
+        "off-grid"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/00E676/FFFFFF?text=Solar+Refrigerator",
+        "gallery": [
+          "https://via.placeholder.com/800x600/00E676/FFFFFF?text=Solar+Refrigerator",
+          "https://via.placeholder.com/800x600/00E676/FFFFFF?text=Solar+Refrigerator",
+          "https://via.placeholder.com/800x600/00E676/FFFFFF?text=Solar+Refrigerator"
+        ]
+      },
+      "price": {
+        "amount": 799.99,
+        "currency": "USD",
+        "display": "Starting at $799"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-refrigerator-12v-110l",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-refrigerator-12v-110l",
+          "available": false
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-21",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "os-001",
+      "name": "Solar String Lights 100 LED Outdoor Waterproof",
+      "category": "outdoor-solar",
+      "tags": [
+        "lights",
+        "decorative",
+        "garden"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/FF6F00/FFFFFF?text=Solar+String+Lights",
+        "gallery": [
+          "https://via.placeholder.com/800x600/FF6F00/FFFFFF?text=Solar+String+Lights",
+          "https://via.placeholder.com/800x600/FF6F00/FFFFFF?text=Solar+String+Lights",
+          "https://via.placeholder.com/800x600/FF6F00/FFFFFF?text=Solar+String+Lights"
+        ]
+      },
+      "price": {
+        "amount": 29.99,
+        "currency": "USD",
+        "display": "Starting at $29"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-string-lights-100led",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-string-lights-100led",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-19",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "os-002",
+      "name": "Portable Solar Generator 500Wh Power Station for Camping",
+      "category": "outdoor-solar",
+      "tags": [
+        "generator",
+        "portable",
+        "camping"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/536DFE/FFFFFF?text=Solar+Generator",
+        "gallery": [
+          "https://via.placeholder.com/800x600/536DFE/FFFFFF?text=Solar+Generator",
+          "https://via.placeholder.com/800x600/536DFE/FFFFFF?text=Solar+Generator",
+          "https://via.placeholder.com/800x600/536DFE/FFFFFF?text=Solar+Generator"
+        ]
+      },
+      "price": {
+        "amount": 399.99,
+        "currency": "USD",
+        "display": "Starting at $399"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/portable-solar-generator-500wh",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/portable-solar-generator-500wh",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-30",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": true
+      }
+    },
+    {
+      "id": "os-003",
+      "name": "Solar Powered Motion Sensor Security Light 2-Pack",
+      "category": "outdoor-solar",
+      "tags": [
+        "security",
+        "motion-sensor",
+        "outdoor"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/D500F9/FFFFFF?text=Solar+Security+Light",
+        "gallery": [
+          "https://via.placeholder.com/800x600/D500F9/FFFFFF?text=Solar+Security+Light",
+          "https://via.placeholder.com/800x600/D500F9/FFFFFF?text=Solar+Security+Light",
+          "https://via.placeholder.com/800x600/D500F9/FFFFFF?text=Solar+Security+Light"
+        ]
+      },
+      "price": {
+        "amount": 49.99,
+        "currency": "USD",
+        "display": "Starting at $49"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-motion-security-light-2pack",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-motion-security-light-2pack",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-29",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "os-004",
+      "name": "Solar Power Bank 30000mAh Fast Charging for Phones",
+      "category": "outdoor-solar",
+      "tags": [
+        "power-bank",
+        "portable-charger",
+        "phones"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/FFC107/FFFFFF?text=Solar+Power+Bank",
+        "gallery": [
+          "https://via.placeholder.com/800x600/FFC107/FFFFFF?text=Solar+Power+Bank",
+          "https://via.placeholder.com/800x600/FFC107/FFFFFF?text=Solar+Power+Bank",
+          "https://via.placeholder.com/800x600/FFC107/FFFFFF?text=Solar+Power+Bank"
+        ]
+      },
+      "price": {
+        "amount": 39.99,
+        "currency": "USD",
+        "display": "Starting at $39"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-power-bank-30000mah",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-power-bank-30000mah",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-17",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "id": "os-005",
+      "name": "Solar Camping Lantern LED Rechargeable Collapsible",
+      "category": "outdoor-solar",
+      "tags": [
+        "lantern",
+        "camping",
+        "led"
+      ],
+      "image": {
+        "thumb": "https://via.placeholder.com/400x300/00BCD4/FFFFFF?text=Solar+Lantern",
+        "gallery": [
+          "https://via.placeholder.com/800x600/00BCD4/FFFFFF?text=Solar+Lantern",
+          "https://via.placeholder.com/800x600/00BCD4/FFFFFF?text=Solar+Lantern",
+          "https://via.placeholder.com/800x600/00BCD4/FFFFFF?text=Solar+Lantern"
+        ]
+      },
+      "price": {
+        "amount": 24.99,
+        "currency": "USD",
+        "display": "Starting at $24"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "https://amazon.com/solar-camping-lantern-led",
+          "available": true
+        },
+        "aliexpress": {
+          "url": "https://aliexpress.com/solar-camping-lantern-led",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-09-16",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      }
+    },
+    {
+      "name": "600W Portable Solar Panel Kit with 100A Charge Controller",
+      "category": "solar-kits",
+      "tags": [
+        "Hot"
+      ],
+      "image": {
+        "thumb": "images/products/1759490521355-344738724.avif",
+        "gallery": [
+          "images/products/1759490521355-344738724.avif"
+        ]
+      },
+      "price": {
+        "amount": 33,
+        "currency": "USD",
+        "display": "33"
+      },
+      "affiliates": {
+        "amazon": {
+          "url": "",
+          "available": false
+        },
+        "aliexpress": {
+          "url": "https://s.click.aliexpress.com/e/_c2RcMcPd",
+          "available": true
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-10-03",
+        "lastUpdated": "2025-10-03",
+        "lastPriceCheck": "2025-10-03",
+        "clicks": 0,
+        "featured": false
+      },
+      "id": "solar-001"
+    }
+  ]
+}

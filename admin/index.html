@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarKits Admin Panel</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                    <path d="M6 6h4v4H6zM14 6h4v4h-4zM6 12h4v4H6zM14 12h4v4h-4z"/>
+                </svg>
+                <h1>SolarKits Admin</h1>
+                <p>Enter password to access the admin panel</p>
+            </div>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Admin Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <div id="login-error" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-screen" class="admin-screen" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-header-left">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                    <path d="M6 6h4v4H6zM14 6h4v4h-4zM6 12h4v4H6zM14 12h4v4h-4z"/>
+                </svg>
+                <h1>SolarKits Admin</h1>
+            </div>
+            <div class="admin-header-right">
+                <button id="logout-btn" class="btn btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Stats -->
+            <div id="dashboard-view" class="dashboard-view">
+                <h2>Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-products">0</div>
+                        <div class="stat-label">Total Products</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="solar-kits-count">0</div>
+                        <div class="stat-label">Solar Kits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="accessories-count">0</div>
+                        <div class="stat-label">Accessories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="featured-count">0</div>
+                        <div class="stat-label">Featured</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Table -->
+            <div class="products-section">
+                <div class="section-header">
+                    <h2>Products</h2>
+                    <button id="add-product-btn" class="btn btn-primary">+ Add Product</button>
+                </div>
+
+                <div class="table-controls">
+                    <input type="text" id="search-products" placeholder="Search products..." class="search-input">
+                    <select id="filter-category" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="solar-kits">Solar Kits</option>
+                        <option value="solar-accessories">Solar Accessories</option>
+                        <option value="home-energy">Home Energy Solutions</option>
+                        <option value="outdoor-solar">Outdoor Solar</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Last Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table-body">
+                            <!-- Products will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Product Form Modal -->
+    <div id="product-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Product</h2>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <form id="product-form" class="product-form">
+                <input type="hidden" id="product-id">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-name">Product Name *</label>
+                        <input type="text" id="product-name" name="name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-category">Category *</label>
+                        <select id="product-category" name="category" required>
+                            <option value="">Select category</option>
+                            <option value="solar-kits">Solar Kits</option>
+                            <option value="solar-accessories">Solar Accessories</option>
+                            <option value="home-energy">Home Energy Solutions</option>
+                            <option value="outdoor-solar">Outdoor Solar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-price">Price ($) *</label>
+                        <input type="number" id="product-price" name="price" step="0.01" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-display-price">Display Price *</label>
+                        <input type="text" id="product-display-price" name="displayPrice" placeholder="e.g., Starting at $99" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-price-check">Last Price Check</label>
+                        <input type="date" id="product-price-check" name="priceCheck">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-tags">Tags (comma-separated)</label>
+                    <input type="text" id="product-tags" name="tags" placeholder="e.g., featured, bestseller">
+                </div>
+
+                <div class="form-group">
+                    <label for="product-amazon-url">Amazon Affiliate URL</label>
+                    <input type="url" id="product-amazon-url" name="amazonUrl" placeholder="https://amzn.to/...">
+                </div>
+
+                <div class="form-group">
+                    <label for="product-aliexpress-url">AliExpress Affiliate URL</label>
+                    <input type="url" id="product-aliexpress-url" name="aliexpressUrl" placeholder="https://aliexpress.com/...">
+                </div>
+
+                <div class="form-group">
+                    <label>Product Images</label>
+                    <div class="image-upload-area" id="image-upload-area">
+                        <input type="file" id="image-upload" multiple accept="image/*" style="display: none;">
+                        <div class="upload-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p>Click to upload or drag and drop</p>
+                            <p class="upload-hint">PNG, JPG, GIF, WEBP up to 5MB</p>
+                        </div>
+                    </div>
+                    <div id="image-preview" class="image-preview"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="product-featured" name="featured">
+                        Featured Product
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
