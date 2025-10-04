@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore solar energy guides, tips, and expert advice. Learn about solar panels, installation, savings, and sustainable energy solutions.">
+    <meta name="keywords" content="solar blog, solar energy guides, solar panel tips, renewable energy, solar installation, solar savings">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Solar Energy Blog | Solarkits">
+    <meta property="og:description" content="Expert guides and tips on solar energy, panels, installation, and sustainable living.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solarkits.com/blog">
+
+    <title>Solar Energy Blog & Guides | Solarkits</title>
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../images/site/favicon.svg">
+</head>
+<body>
+    <!-- Skip to Content Link - Accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <!-- Header & Navigation -->
+    <header class="header" id="header" role="banner">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav__logo">
+                    <a href="../index.html" class="logo">
+                        <img src="../images/site/logo.svg" alt="Solarkits Logo" class="logo__icon" width="40" height="40">
+                        <span class="logo__text">solarkits</span>
+                    </a>
+                </div>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="../index.html" class="nav__link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="blog.html" class="nav__link nav__link--active">Blog</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="categories.html" class="nav__link">Shop</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="about.html" class="nav__link">About</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="contact.html" class="nav__link">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="nav__search">
+                        <input
+                            type="search"
+                            class="search__input"
+                            id="blog-search-input"
+                            placeholder="Search articles..."
+                            aria-label="Search blog articles">
+                        <button class="search__button" aria-label="Search">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" id="main-content" role="main">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">Blog</h1>
+                <p class="page-header__description">
+                    Stay tuned for exciting content on solar, clean energy, and sustainability!
+                </p>
+            </div>
+        </section>
+
+        <!-- Blog Posts Section -->
+        <section class="blog-section">
+            <div class="container">
+                <!-- Category Filter -->
+                <div class="blog-filter">
+                    <h2 class="sr-only">Filter by Category</h2>
+                    <div class="blog-filter__buttons">
+                        <button class="blog-filter__btn blog-filter__btn--active" data-category="all">
+                            All Posts
+                        </button>
+                        <button class="blog-filter__btn" data-category="Going Solar">
+                            Going Solar
+                        </button>
+                        <button class="blog-filter__btn" data-category="Solar Facts and Questions">
+                            Solar Facts
+                        </button>
+                        <button class="blog-filter__btn" data-category="Homeowners">
+                            Homeowners
+                        </button>
+                        <button class="blog-filter__btn" data-category="Energy Solutions">
+                            Energy Solutions
+                        </button>
+                        <button class="blog-filter__btn" data-category="Outdoor Solar">
+                            Outdoor Solar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Blog Grid -->
+                <div class="blog-grid" id="blog-grid">
+                    <!-- Blog cards will be inserted here by JavaScript -->
+                    <div class="loading">
+                        <div class="loading__spinner"></div>
+                        <p>Loading articles...</p>
+                    </div>
+                </div>
+
+                <!-- No Results Message -->
+                <div class="no-results" id="blog-no-results" style="display: none;">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2"/>
+                        <path d="M32 20v16M32 44h.02" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h3>No articles found</h3>
+                    <p>Try selecting a different category to see more content.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter CTA Section -->
+        <section class="newsletter-cta">
+            <div class="container">
+                <div class="newsletter-cta__content">
+                    <div class="newsletter-cta__text">
+                        <h2>Stay Updated with Solar Insights</h2>
+                        <p>Get the latest solar energy tips, guides, and product recommendations delivered to your inbox.</p>
+                    </div>
+                    <form class="newsletter-form newsletter-form--inline" id="newsletter-form-blog">
+                        <input
+                            type="email"
+                            class="newsletter__input"
+                            placeholder="Your email address"
+                            aria-label="Email address"
+                            required>
+                        <button type="submit" class="newsletter__button">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <!-- Brand Column -->
+                <div class="footer__column">
+                    <div class="footer__logo">
+                        <img src="../images/site/logo.svg" alt="Solarkits Logo" class="logo__icon" width="40" height="40">
+                        <span class="logo__text">solarkits</span>
+                    </div>
+                    <p class="footer__description">
+                        Your trusted source for solar energy products and solutions.
+                        Powering homes and lives with clean, reliable solar energy.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer__column">
+                    <h3 class="footer__title">Quick Links</h3>
+                    <ul class="footer__links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="categories.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="footer__column">
+                    <h3 class="footer__title">Legal</h3>
+                    <ul class="footer__links">
+                        <li><a href="disclaimer.html">Affiliate Disclaimer</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer__column">
+                    <h3 class="footer__title">Stay Updated</h3>
+                    <p class="footer__newsletter-text">Get the latest solar deals and energy tips delivered to your inbox.</p>
+                    <form class="newsletter-form" id="newsletter-form-footer">
+                        <input
+                            type="email"
+                            class="newsletter__input"
+                            placeholder="Your email"
+                            aria-label="Email address"
+                            required>
+                        <button type="submit" class="newsletter__button">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2025 Solarkits. All rights reserved.
+                </p>
+                <p class="footer__disclaimer">
+                    As an Amazon Associate and AliExpress affiliate, we earn from qualifying purchases.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="../js/notification.js"></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/blog.js" defer></script>
+</body>
+</html>

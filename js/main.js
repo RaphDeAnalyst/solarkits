@@ -123,15 +123,19 @@
       const email = emailInput.value.trim();
 
       if (!email) {
-        alert('Please enter a valid email address.');
+        if (window.notify) {
+          window.notify.warning('Please enter a valid email address.');
+        }
         return;
       }
 
       // TODO: Connect to actual email service (Mailchimp, SendGrid, etc.)
       console.log('Newsletter signup:', email);
 
-      // Temporary success message
-      alert('Thank you for subscribing! 🎉');
+      // Success message
+      if (window.notify) {
+        window.notify.success('Thank you for subscribing! We\'ll keep you updated with the latest solar deals.');
+      }
       emailInput.value = '';
     });
   }
@@ -189,18 +193,35 @@
 
   /**
    * Add Active State to Navigation
+   * Handles proper active state for navigation links without hash conflicts
    */
   function updateActiveNavLink() {
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('.nav__link');
 
     navLinks.forEach(link => {
-      const linkPath = new URL(link.href).pathname;
+      try {
+        const linkURL = new URL(link.href);
+        const linkPath = linkURL.pathname;
+        const hasHash = linkURL.hash;
 
-      if (linkPath === currentPath) {
-        link.classList.add('nav__link--active');
-      } else {
-        link.classList.remove('nav__link--active');
+        // Skip hash-only links (like #categories on same page)
+        if (hasHash && linkPath === currentPath) {
+          link.classList.remove('nav__link--active');
+          return;
+        }
+
+        // Match exact pathname
+        if (linkPath === currentPath ||
+            (linkPath + '/' === currentPath) ||
+            (linkPath === currentPath + '/')) {
+          link.classList.add('nav__link--active');
+        } else {
+          link.classList.remove('nav__link--active');
+        }
+      } catch (error) {
+        // Skip invalid URLs
+        console.warn('Invalid nav link URL:', link.href);
       }
     });
   }

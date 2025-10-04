@@ -10,14 +10,73 @@ const session = require('express-session');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const compression = require('compression');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Security & Performance Middleware
+// Compression for all responses
+app.use(compression({
+  level: 6, // Balanced compression level
+  threshold: 1024 // Only compress responses > 1KB
+}));
+
+// Security headers with helmet (disabled CSP for development)
+app.use(helmet({
+  contentSecurityPolicy: false, // Disable CSP to prevent CSS/JS blocking issues
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  }
+}));
+
+// Rate limiting for API endpoints
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit login attempts
+  message: 'Too many login attempts, please try again later.',
+  skipSuccessfulRequests: true
+});
+
+// Apply rate limiting to API routes
+app.use('/api/', apiLimiter);
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('.'));
+
+// Static files with caching headers
+app.use(express.static('.', {
+  maxAge: '1y', // Cache static assets for 1 year
+  etag: true,
+  lastModified: true,
+  setHeaders: (res, path) => {
+    // Don't cache HTML files aggressively
+    if (path.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    }
+    // Cache CSS and JS for 1 month
+    else if (path.endsWith('.css') || path.endsWith('.js')) {
+      res.setHeader('Cache-Control', 'public, max-age=2592000, immutable');
+    }
+    // Cache images for 1 year
+    else if (path.match(/\.(jpg|jpeg|png|gif|webp|avif|svg|ico)$/)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+  }
+}));
 
 // Session configuration
 app.use(session({
@@ -71,7 +130,7 @@ function requireAuth(req, res, next) {
 // ==================== AUTHENTICATION ROUTES ====================
 
 // Login
-app.post('/api/login', (req, res) => {
+app.post('/api/login', authLimiter, (req, res) => {
   const { password } = req.body;
 
   if (password === process.env.ADMIN_PASSWORD) {
@@ -219,6 +278,127 @@ app.delete('/api/products/:id', requireAuth, (req, res) => {
   }
 });
 
+// ==================== BLOG API ROUTES ====================
+
+const BLOG_FILE = './data/blog.json';
+
+// Helper function to read blog posts
+function readBlogPosts() {
+  try {
+    const data = fs.readFileSync(BLOG_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading blog posts:', error);
+    return { posts: [] };
+  }
+}
+
+// Helper function to write blog posts
+function writeBlogPosts(data) {
+  try {
+    fs.writeFileSync(BLOG_FILE, JSON.stringify(data, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    console.error('Error writing blog posts:', error);
+    return false;
+  }
+}
+
+// Get all blog posts
+app.get('/api/blog', requireAuth, (req, res) => {
+  const data = readBlogPosts();
+  res.json(data);
+});
+
+// Get single blog post
+app.get('/api/blog/:id', requireAuth, (req, res) => {
+  const data = readBlogPosts();
+  const post = data.posts.find(p => p.id === req.params.id);
+
+  if (post) {
+    res.json(post);
+  } else {
+    res.status(404).json({ error: 'Blog post not found' });
+  }
+});
+
+// Create new blog post
+app.post('/api/blog', requireAuth, (req, res) => {
+  const data = readBlogPosts();
+  const newPost = req.body;
+
+  // Generate ID if not provided
+  if (!newPost.id) {
+    const maxId = data.posts.reduce((max, p) => {
+      const num = parseInt(p.id.split('-')[1]);
+      return num > max ? num : max;
+    }, 0);
+    newPost.id = `blog-${String(maxId + 1).padStart(3, '0')}`;
+  }
+
+  // Set date if not provided
+  if (!newPost.date) {
+    newPost.date = new Date().toISOString().split('T')[0];
+  }
+
+  // Generate slug if not provided
+  if (!newPost.slug) {
+    newPost.slug = newPost.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  }
+
+  data.posts.unshift(newPost); // Add to beginning
+
+  if (writeBlogPosts(data)) {
+    res.json({ success: true, post: newPost });
+  } else {
+    res.status(500).json({ error: 'Failed to save blog post' });
+  }
+});
+
+// Update blog post
+app.put('/api/blog/:id', requireAuth, (req, res) => {
+  const data = readBlogPosts();
+  const index = data.posts.findIndex(p => p.id === req.params.id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Blog post not found' });
+  }
+
+  const updatedPost = {
+    ...data.posts[index],
+    ...req.body
+  };
+
+  data.posts[index] = updatedPost;
+
+  if (writeBlogPosts(data)) {
+    res.json({ success: true, post: updatedPost });
+  } else {
+    res.status(500).json({ error: 'Failed to update blog post' });
+  }
+});
+
+// Delete blog post
+app.delete('/api/blog/:id', requireAuth, (req, res) => {
+  const data = readBlogPosts();
+  const index = data.posts.findIndex(p => p.id === req.params.id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Blog post not found' });
+  }
+
+  data.posts.splice(index, 1);
+
+  if (writeBlogPosts(data)) {
+    res.json({ success: true, message: 'Blog post deleted' });
+  } else {
+    res.status(500).json({ error: 'Failed to delete blog post' });
+  }
+});
+
 // ==================== IMAGE UPLOAD ROUTES ====================
 
 // Upload image(s)
@@ -251,8 +431,10 @@ app.delete('/api/images/:filename', requireAuth, (req, res) => {
 
 // ==================== START SERVER ====================
 
-app.listen(PORT, () => {
-  console.log(`
+// Only start server if not running on Vercel (for local development)
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`
 ╔═══════════════════════════════════════════╗
 ║   🌞 SolarKits Admin Panel Server       ║
 ╠═══════════════════════════════════════════╣
@@ -260,5 +442,9 @@ app.listen(PORT, () => {
 ║   Main Site:  http://localhost:${PORT}/   ║
 ║   Admin Panel: http://localhost:${PORT}/admin ║
 ╚═══════════════════════════════════════════╝
-  `);
-});
+    `);
+  });
+}
+
+// Export for Vercel serverless functions
+module.exports = app;

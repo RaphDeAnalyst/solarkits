@@ -13,8 +13,7 @@
         "thumb": "images/products/Panel.webp",
         "gallery": [
           "images/products/Panel.webp",
-          "images/products/Se22ad44b3a0844c0b1f58544b637fc809.jpg_220x220q75.jpg_.avif",
-          "images/products/1759490313975-762402612.jpg"
+          "images/products/Se22ad44b3a0844c0b1f58544b637fc809.jpg_220x220q75.jpg_.avif"
         ]
       },
       "price": {
@@ -34,47 +33,7 @@
       },
       "metadata": {
         "dateAdded": "2025-09-15",
-        "lastUpdated": "2025-10-03",
-        "lastPriceCheck": "2025-10-03",
-        "clicks": 0,
-        "featured": true
-      }
-    },
-    {
-      "id": "sk-002",
-      "name": "Portable Solar Panel Kit 200W Foldable with Charge Controller",
-      "category": "solar-kits",
-      "tags": [
-        "portable",
-        "camping",
-        "off-grid"
-      ],
-      "image": {
-        "thumb": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=200W+Portable+Solar",
-        "gallery": [
-          "https://via.placeholder.com/800x600/4CAF50/FFFFFF?text=200W+Portable+Solar",
-          "https://via.placeholder.com/800x600/4CAF50/FFFFFF?text=200W+Portable+Solar",
-          "https://via.placeholder.com/800x600/4CAF50/FFFFFF?text=200W+Portable+Solar"
-        ]
-      },
-      "price": {
-        "amount": 299.99,
-        "currency": "USD",
-        "display": "Starting at $299"
-      },
-      "affiliates": {
-        "amazon": {
-          "url": "https://amazon.com/portable-solar-panel-200w",
-          "available": true
-        },
-        "aliexpress": {
-          "url": "https://aliexpress.com/portable-solar-panel-200w",
-          "available": true
-        }
-      },
-      "metadata": {
-        "dateAdded": "2025-09-20",
-        "lastUpdated": "2025-10-03",
+        "lastUpdated": "2025-10-04",
         "lastPriceCheck": "2025-10-03",
         "clicks": 0,
         "featured": true
@@ -655,7 +614,7 @@
       "price": {
         "amount": 33,
         "currency": "USD",
-        "display": "33"
+        "display": "Starting at $33.00"
       },
       "affiliates": {
         "amazon": {
@@ -669,10 +628,10 @@
       },
       "metadata": {
         "dateAdded": "2025-10-03",
-        "lastUpdated": "2025-10-03",
+        "lastUpdated": "2025-10-04",
         "lastPriceCheck": "2025-10-03",
         "clicks": 0,
-        "featured": false
+        "featured": true
       },
       "id": "solar-001"
     }

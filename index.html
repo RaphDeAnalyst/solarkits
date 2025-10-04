@@ -21,25 +21,56 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Stylesheets -->
+    <!-- Critical CSS - Inlined for performance -->
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.6;color:var(--color-text);background-color:var(--color-bg);overflow-x:hidden}
+        :root{--color-primary:#FF9800;--color-primary-dark:#F57C00;--color-bg:#FFFFFF;--color-bg-secondary:#F5F5F5;--color-text:#333333;--color-text-light:#666666;--color-border:#E0E0E0;--shadow-sm:0 2px 4px rgba(0,0,0,0.05);--shadow-md:0 4px 8px rgba(0,0,0,0.1);--spacing-sm:0.5rem;--spacing-md:1rem;--spacing-lg:1.5rem;--spacing-xl:2rem;--spacing-2xl:3rem;--spacing-3xl:4rem;--radius-sm:4px;--radius-full:9999px;--transition-base:250ms ease;--container-max-width:1200px;--header-height:70px}
+        .container{width:100%;max-width:var(--container-max-width);margin:0 auto;padding:0 var(--spacing-md)}
+        h1{font-weight:700;line-height:1.2;color:var(--color-text);font-size:clamp(2rem,5vw,3rem)}
+        a{color:inherit;text-decoration:none;transition:color var(--transition-base)}
+        img{max-width:100%;height:auto;display:block}
+        button{font-family:inherit;cursor:pointer;border:none;background:none}
+        .skip-to-content{position:absolute;left:-9999px;top:0;z-index:10000;padding:1rem 1.5rem;background-color:var(--color-primary);color:white;text-decoration:none;font-weight:600;border-radius:0 0 var(--radius-sm) 0}
+        .skip-to-content:focus{left:0;outline:3px solid var(--color-text);outline-offset:2px}
+        .btn{display:inline-flex;align-items:center;justify-content:center;padding:var(--spacing-sm) var(--spacing-lg);font-size:1rem;font-weight:600;border-radius:var(--radius-sm);transition:all var(--transition-base);text-align:center;border:2px solid transparent;min-height:44px;gap:var(--spacing-sm)}
+        .btn--primary{background-color:var(--color-primary);color:white}
+        .btn--primary:hover{background-color:var(--color-primary-dark);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+        .header{position:sticky;top:0;left:0;width:100%;background-color:var(--color-bg);box-shadow:var(--shadow-sm);z-index:1000;height:var(--header-height)}
+        .nav{display:flex;align-items:center;justify-content:space-between;height:var(--header-height)}
+        .nav__logo .logo{display:flex;align-items:center;gap:var(--spacing-sm);font-size:1.5rem;font-weight:700;color:var(--color-primary)}
+        .logo__icon{width:40px;height:40px;color:var(--color-primary);flex-shrink:0;display:block}
+        .nav__menu{display:flex;align-items:center;gap:var(--spacing-xl)}
+        .nav__list{display:flex;align-items:center;gap:var(--spacing-lg);list-style:none}
+        .nav__link{font-weight:500;color:var(--color-text);padding:var(--spacing-sm) var(--spacing-md);border-radius:var(--radius-sm);transition:all var(--transition-base)}
+        .nav__link:hover{color:var(--color-primary);background-color:var(--color-bg-secondary)}
+        .nav__link--active{color:var(--color-primary);font-weight:600;border-bottom:2px solid var(--color-primary);padding-bottom:calc(var(--spacing-sm) - 2px)}
+        .hero{background:linear-gradient(135deg,#FF9800 0%,#FFC107 100%);color:white;padding:var(--spacing-3xl) 0;text-align:center}
+        .hero__content{max-width:700px;margin:0 auto}
+        .hero__title{font-size:clamp(2rem,6vw,3.5rem);margin-bottom:var(--spacing-lg);color:white}
+        .hero__description{font-size:clamp(1rem,2vw,1.25rem);margin-bottom:var(--spacing-xl);opacity:0.95}
+        .hero .btn--primary{background-color:white;color:var(--color-primary);font-size:1.125rem;padding:var(--spacing-md) var(--spacing-2xl)}
+        .hero .btn--primary:hover{background-color:var(--color-bg-secondary);transform:scale(1.05)}
+    </style>
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="css/styles.css">
 
-    <!-- Favicon (placeholder) -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="images/site/favicon.svg">
 </head>
 <body>
+    <!-- Skip to Content Link - Accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
     <!-- Header & Navigation -->
-    <header class="header" id="header">
+    <header class="header" id="header" role="banner">
         <div class="container">
             <nav class="nav">
                 <div class="nav__logo">
                     <a href="/" class="logo">
-                        <svg class="logo__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                            <path d="M6 6h4v4H6zM14 6h4v4h-4zM6 12h4v4H6zM14 12h4v4h-4z"/>
-                        </svg>
+                        <img src="images/site/logo.svg" alt="Solarkits Logo" class="logo__icon" width="40" height="40">
                         <span class="logo__text">solarkits</span>
                     </a>
                 </div>
@@ -50,7 +81,10 @@
                             <a href="/" class="nav__link nav__link--active">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="#categories" class="nav__link">Categories</a>
+                            <a href="pages/blog.html" class="nav__link">Blog</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="pages/categories.html" class="nav__link">Shop</a>
                         </li>
                         <li class="nav__item">
                             <a href="pages/about.html" class="nav__link">About</a>
@@ -85,7 +119,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main">
+    <main class="main" id="main-content" role="main">
         <!-- Hero Section -->
         <section class="hero">
             <div class="container">
@@ -100,32 +134,72 @@
             </div>
         </section>
 
-        <!-- Categories Section -->
-        <section class="categories" id="categories">
+        <!-- Why Solar Section -->
+        <section class="why-solar">
             <div class="container">
-                <h2 class="section__title">Shop by Category</h2>
-                <div class="categories__grid">
-                    <button class="category-btn category-btn--active" data-category="all">
-                        All Solar Products
-                    </button>
-                    <button class="category-btn" data-category="solar-kits">
-                        Solar Kits
-                    </button>
-                    <button class="category-btn" data-category="solar-accessories">
-                        Solar Accessories
-                    </button>
-                    <button class="category-btn" data-category="home-energy">
-                        Home Energy Solutions
-                    </button>
-                    <button class="category-btn" data-category="outdoor-solar">
-                        Outdoor Solar
-                    </button>
+                <h2 class="section__title">Why Choose Solar Energy?</h2>
+                <p class="why-solar__intro">
+                    Solar power is more than just an energy source—it's a smart investment in your future,
+                    your wallet, and our planet. Discover the benefits that make solar the right choice.
+                </p>
+                <div class="why-solar__grid">
+                    <div class="benefit-card">
+                        <svg class="benefit-card__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="32" cy="32" r="12"/>
+                            <path d="M32 8v8M32 48v8M8 32h8M48 32h8M14.4 14.4l5.6 5.6M44 44l5.6 5.6M14.4 49.6l5.6-5.6M44 20l5.6-5.6"/>
+                        </svg>
+                        <h3 class="benefit-card__title">Slash Your Energy Bills</h3>
+                        <p class="benefit-card__description">
+                            Reduce or eliminate your monthly electricity costs. Most homeowners save 20-70% on their energy bills with solar.
+                        </p>
+                    </div>
+                    <div class="benefit-card">
+                        <svg class="benefit-card__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M32 8C18.7 8 8 18.7 8 32s10.7 24 24 24 24-10.7 24-24S45.3 8 32 8z"/>
+                            <path d="M32 16v16l8 8"/>
+                            <circle cx="32" cy="32" r="3"/>
+                        </svg>
+                        <h3 class="benefit-card__title">Energy Independence</h3>
+                        <p class="benefit-card__description">
+                            Take control of your power supply. With solar and battery backup, reduce reliance on the grid and protect against outages.
+                        </p>
+                    </div>
+                    <div class="benefit-card">
+                        <svg class="benefit-card__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M32 8l-4 16h-12l10 8-4 16 10-8 10 8-4-16 10-8H36z"/>
+                            <circle cx="32" cy="32" r="24"/>
+                        </svg>
+                        <h3 class="benefit-card__title">Protect the Planet</h3>
+                        <p class="benefit-card__description">
+                            Reduce your carbon footprint and combat climate change. Solar energy produces zero emissions and helps create a cleaner future.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Products Section -->
-        <section class="products" id="products">
+        <!-- Featured Guides Section -->
+        <section class="featured-guides">
+            <div class="container">
+                <h2 class="section__title">Expert Solar Guides</h2>
+                <p class="featured-guides__subtitle">
+                    Learn everything you need to know about solar energy, installation, savings, and more.
+                </p>
+                <div class="blog-grid" id="featured-guides-grid">
+                    <!-- Featured blog posts will be inserted here by JavaScript -->
+                    <div class="loading">
+                        <div class="loading__spinner"></div>
+                        <p>Loading guides...</p>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: var(--spacing-xl);">
+                    <a href="pages/blog.html" class="btn btn--primary">View All Articles</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Picks Section -->
+        <section class="top-picks">
             <!-- Price Disclaimer Banner -->
             <div class="price-disclaimer">
                 <div class="container">
@@ -142,30 +216,16 @@
             </div>
 
             <div class="container">
-                <div class="products__header">
-                    <h2 class="section__title">Featured Products</h2>
-                    <div class="products__info">
-                        <span id="products-count">0</span> products found
-                    </div>
-                </div>
-
-                <!-- Products Grid - Populated by JavaScript -->
-                <div class="products__grid" id="products-grid">
-                    <!-- Product cards will be inserted here -->
+                <h2 class="section__title">Top Solar Picks</h2>
+                <p class="top-picks__subtitle">
+                    Hand-selected products recommended by our experts for quality, value, and performance.
+                </p>
+                <div class="products__grid" id="top-picks-grid">
+                    <!-- Top pick products will be inserted here by JavaScript -->
                     <div class="loading">
                         <div class="loading__spinner"></div>
-                        <p>Loading products...</p>
+                        <p>Loading top picks...</p>
                     </div>
-                </div>
-
-                <!-- No Results Message -->
-                <div class="no-results" id="no-results" style="display: none;">
-                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                        <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2"/>
-                        <path d="M32 20v16M32 44h.02" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <h3>No products found</h3>
-                    <p>Try adjusting your search or filter to find what you're looking for.</p>
                 </div>
             </div>
         </section>
@@ -195,12 +255,7 @@
                 <!-- Brand Column -->
                 <div class="footer__column">
                     <div class="footer__logo">
-                        <svg class="logo__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                            <path d="M6 6h4v4H6zM14 6h4v4h-4zM6 12h4v4H6zM14 12h4v4h-4z"/>
-                        </svg>
+                        <img src="images/site/logo.svg" alt="Solarkits Logo" class="logo__icon" width="40" height="40">
                         <span class="logo__text">solarkits</span>
                     </div>
                     <p class="footer__description">
@@ -214,7 +269,8 @@
                     <h3 class="footer__title">Quick Links</h3>
                     <ul class="footer__links">
                         <li><a href="/">Home</a></li>
-                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="pages/blog.html">Blog</a></li>
+                        <li><a href="pages/categories.html">Shop</a></li>
                         <li><a href="pages/about.html">About Us</a></li>
                         <li><a href="pages/contact.html">Contact</a></li>
                     </ul>
@@ -275,9 +331,129 @@
     </div>
 
     <!-- JavaScript -->
+    <script src="js/notification.js"></script>
     <script src="js/lightbox.js"></script>
     <script src="js/main.js" defer></script>
     <script src="js/products.js" defer></script>
     <script src="js/search.js" defer></script>
+    <script>
+        // Load Featured Guides and Top Picks for Homepage
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Load Featured Blog Posts
+            try {
+                const blogResponse = await fetch('data/blog.json');
+                const blogData = await blogResponse.json();
+                const featuredPosts = blogData.posts.filter(post => post.featured);
+
+                const guidesGrid = document.getElementById('featured-guides-grid');
+                if (guidesGrid && featuredPosts.length > 0) {
+                    guidesGrid.innerHTML = featuredPosts.map(post => createBlogCard(post)).join('');
+                }
+            } catch (error) {
+                console.error('Error loading featured guides:', error);
+            }
+
+            // Load Top Pick Products
+            try {
+                const productsResponse = await fetch('data/products.json');
+                const productsData = await productsResponse.json();
+                const topPicks = productsData.products.filter(p => p.metadata && p.metadata.featured).slice(0, 4);
+
+                const picksGrid = document.getElementById('top-picks-grid');
+                if (picksGrid && topPicks.length > 0) {
+                    picksGrid.innerHTML = topPicks.map(product => createProductCard(product)).join('');
+                }
+            } catch (error) {
+                console.error('Error loading top picks:', error);
+            }
+        });
+
+        function createBlogCard(post) {
+            return `
+                <div class="blog-card">
+                    <a href="pages/blog-post-template.html?post=${post.id}" class="blog-card__link">
+                        <div class="blog-card__image">
+                            <img src="${post.featuredImage}" alt="${escapeHtml(post.title)}" loading="lazy">
+                            <span class="blog-card__category">${escapeHtml(post.category)}</span>
+                        </div>
+                        <div class="blog-card__content">
+                            <h3 class="blog-card__title">${escapeHtml(post.title)}</h3>
+                            <p class="blog-card__excerpt">${escapeHtml(post.excerpt)}</p>
+                            <div class="blog-card__meta">
+                                <span class="blog-card__date">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
+                                        <line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                    ${formatDate(post.date)}
+                                </span>
+                            </div>
+                            <span class="blog-card__read-more">
+                                Read More
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                    <polyline points="12 5 19 12 12 19"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            `;
+        }
+
+        function createProductCard(product) {
+            const amazonLink = product.affiliates.amazon.available ? product.affiliates.amazon.url : '#';
+            const aliexpressLink = product.affiliates.aliexpress.available ? product.affiliates.aliexpress.url : '#';
+
+            return `
+                <div class="product-card">
+                    <div class="product-card__image-wrapper">
+                        <img src="${product.image.thumb}" alt="${escapeHtml(product.name)}" class="product-card__image" loading="lazy">
+                        ${product.metadata && product.metadata.featured ? '<span class="product-card__badge">Featured</span>' : ''}
+                    </div>
+                    <div class="product-card__content">
+                        <p class="product-card__category">${formatCategory(product.category)}</p>
+                        <h3 class="product-card__title">${escapeHtml(product.name)}</h3>
+                        <div class="product-card__price">
+                            ${product.price.display}
+                            <span class="product-card__price-date">Updated: ${formatDateShort(product.metadata.lastPriceCheck)}</span>
+                        </div>
+                        <div class="product-card__cta">
+                            ${product.affiliates.amazon.available ?
+                                `<a href="${amazonLink}" class="btn btn--amazon" target="_blank" rel="noopener" aria-label="Check current price for ${escapeHtml(product.name)} on Amazon">Amazon</a>` : ''}
+                            ${product.affiliates.aliexpress.available ?
+                                `<a href="${aliexpressLink}" class="btn btn--aliexpress" target="_blank" rel="noopener" aria-label="Check current price for ${escapeHtml(product.name)} on AliExpress">AliExpress</a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function formatDateShort(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function formatCategory(category) {
+            return category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        }
+
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
 </body>
 </html>

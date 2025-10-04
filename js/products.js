@@ -19,6 +19,7 @@
 
   /**
    * Load products from JSON file
+   * On homepage, only show featured products
    */
   async function loadProducts() {
     try {
@@ -32,9 +33,11 @@
 
       const data = await response.json();
       allProducts = data.products || [];
-      filteredProducts = allProducts;
 
-      console.log(`📦 Loaded ${allProducts.length} products`);
+      // On homepage, filter to show only featured products
+      filteredProducts = allProducts.filter(p => p.metadata.featured);
+
+      console.log(`📦 Loaded ${allProducts.length} products (${filteredProducts.length} featured)`);
 
       renderProducts();
       updateProductCount();
@@ -42,6 +45,11 @@
     } catch (error) {
       console.error('Error loading products:', error);
       showError('Failed to load products. Please refresh the page.');
+
+      // Show notification
+      if (window.notify) {
+        window.notify.error('Failed to load products. Please refresh the page.');
+      }
     } finally {
       showLoading(false);
     }
@@ -162,14 +170,19 @@
 
   /**
    * Filter products by category
+   * On homepage, only show featured products
    */
   function filterByCategory(category) {
     currentCategory = category;
 
     if (category === 'all') {
-      filteredProducts = allProducts;
+      // Show all featured products
+      filteredProducts = allProducts.filter(p => p.metadata.featured);
     } else {
-      filteredProducts = allProducts.filter(product => product.category === category);
+      // Show only featured products from selected category
+      filteredProducts = allProducts.filter(product =>
+        product.category === category && product.metadata.featured
+      );
     }
 
     renderProducts();

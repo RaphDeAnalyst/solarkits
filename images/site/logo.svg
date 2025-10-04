@@ -1,0 +1,52 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer rays (solar panels) -->
+  <g id="rays">
+    <!-- Top ray -->
+    <rect x="18" y="2" width="4" height="8" rx="1" fill="currentColor" opacity="0.9"/>
+    <line x1="19" y1="3" x2="19" y2="9" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+    <line x1="21" y1="3" x2="21" y2="9" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+
+    <!-- Top-right ray -->
+    <rect x="27.5" y="6.5" width="4" height="8" rx="1" fill="currentColor" opacity="0.9" transform="rotate(45 29.5 10.5)"/>
+
+    <!-- Right ray -->
+    <rect x="30" y="18" width="8" height="4" rx="1" fill="currentColor" opacity="0.9"/>
+    <line x1="31" y1="19" x2="37" y2="19" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+    <line x1="31" y1="21" x2="37" y2="21" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+
+    <!-- Bottom-right ray -->
+    <rect x="27.5" y="25.5" width="4" height="8" rx="1" fill="currentColor" opacity="0.9" transform="rotate(135 29.5 29.5)"/>
+
+    <!-- Bottom ray -->
+    <rect x="18" y="30" width="4" height="8" rx="1" fill="currentColor" opacity="0.9"/>
+    <line x1="19" y1="31" x2="19" y2="37" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+    <line x1="21" y1="31" x2="21" y2="37" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+
+    <!-- Bottom-left ray -->
+    <rect x="8.5" y="25.5" width="4" height="8" rx="1" fill="currentColor" opacity="0.9" transform="rotate(-135 10.5 29.5)"/>
+
+    <!-- Left ray -->
+    <rect x="2" y="18" width="8" height="4" rx="1" fill="currentColor" opacity="0.9"/>
+    <line x1="3" y1="19" x2="9" y2="19" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+    <line x1="3" y1="21" x2="9" y2="21" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+
+    <!-- Top-left ray -->
+    <rect x="8.5" y="6.5" width="4" height="8" rx="1" fill="currentColor" opacity="0.9" transform="rotate(-45 10.5 10.5)"/>
+  </g>
+
+  <!-- Center sun circle with solar panel grid -->
+  <circle cx="20" cy="20" r="9" fill="currentColor"/>
+
+  <!-- Solar panel grid on sun -->
+  <g id="panel-grid" stroke="white" stroke-width="0.8" opacity="0.3">
+    <line x1="20" y1="12" x2="20" y2="28"/>
+    <line x1="12" y1="20" x2="28" y2="20"/>
+    <line x1="16" y1="12" x2="16" y2="28"/>
+    <line x1="24" y1="12" x2="24" y2="28"/>
+    <line x1="12" y1="16" x2="28" y2="16"/>
+    <line x1="12" y1="24" x2="28" y2="24"/>
+  </g>
+
+  <!-- Inner highlight circle -->
+  <circle cx="20" cy="20" r="9" fill="none" stroke="white" stroke-width="1" opacity="0.15"/>
+</svg>

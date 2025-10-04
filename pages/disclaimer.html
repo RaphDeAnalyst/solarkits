@@ -10,19 +10,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../images/site/favicon.svg">
 </head>
 <body>
-    <header class="header" id="header">
+    <!-- Skip to Content Link - Accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <header class="header" id="header" role="banner">
         <div class="container">
             <nav class="nav">
                 <div class="nav__logo">
                     <a href="../index.html" class="logo">
-                        <svg class="logo__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                            <path d="M6 6h4v4H6zM14 6h4v4h-4zM6 12h4v4H6zM14 12h4v4h-4z"/>
-                        </svg>
+                        <img src="../images/site/logo.svg" alt="Solarkits Logo" class="logo__icon" width="40" height="40">
                         <span class="logo__text">solarkits</span>
                     </a>
                 </div>
@@ -43,7 +44,7 @@
         </div>
     </header>
 
-    <main class="main">
+    <main class="main" id="main-content" role="main">
         <section style="padding: 4rem 0;">
             <div class="container" style="max-width: 800px;">
                 <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-text);">Affiliate Disclaimer</h1>
@@ -177,12 +178,7 @@
             <div class="footer__grid">
                 <div class="footer__column">
                     <div class="footer__logo">
-                        <svg class="logo__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                            <path d="M6 6h4v4H6zM14 6h4v4h-4zM6 12h4v4H6zM14 12h4v4h-4z"/>
-                        </svg>
+                        <img src="../images/site/logo.svg" alt="Solarkits Logo" class="logo__icon" width="40" height="40">
                         <span class="logo__text">solarkits</span>
                     </div>
                     <p class="footer__description">
@@ -206,6 +202,21 @@
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
                     </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer__column">
+                    <h3 class="footer__title">Stay Updated</h3>
+                    <p class="footer__newsletter-text">Get the latest solar deals and energy tips delivered to your inbox.</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input
+                            type="email"
+                            class="newsletter__input"
+                            placeholder="Your email"
+                            aria-label="Email address"
+                            required>
+                        <button type="submit" class="newsletter__button">Subscribe</button>
+                    </form>
                 </div>
             </div>
             <div class="footer__bottom">

@@ -7,8 +7,11 @@
 
   // State
   let allProducts = [];
+  let allBlogPosts = [];
   let currentEditId = null;
+  let currentEditBlogId = null;
   let uploadedImages = [];
+  let currentTab = 'dashboard';
 
   // DOM Elements
   const loginScreen = document.getElementById('login-screen');
@@ -31,11 +34,26 @@
   const imageUploadInput = document.getElementById('image-upload');
   const imagePreview = document.getElementById('image-preview');
 
+  // Blog DOM Elements
+  const addBlogBtn = document.getElementById('add-blog-btn');
+  const blogModal = document.getElementById('blog-modal');
+  const blogForm = document.getElementById('blog-form');
+  const closeBlogModalBtn = document.getElementById('close-blog-modal');
+  const cancelBlogBtn = document.getElementById('cancel-blog-btn');
+  const searchBlogInput = document.getElementById('search-blog');
+  const filterBlogCategory = document.getElementById('filter-blog-category');
+  const blogTableBody = document.getElementById('blog-table-body');
+
+  // Tab Elements
+  const tabButtons = document.querySelectorAll('.admin-tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+
   // ==================== INITIALIZATION ====================
 
   async function init() {
     await checkAuth();
     setupEventListeners();
+    setupTabSwitching();
   }
 
   // ==================== AUTHENTICATION ====================
@@ -48,6 +66,7 @@
       if (data.authenticated) {
         showAdminScreen();
         await loadProducts();
+        await loadBlogPosts();
       } else {
         showLoginScreen();
       }
@@ -70,6 +89,7 @@
       if (response.ok) {
         showAdminScreen();
         await loadProducts();
+        await loadBlogPosts();
       } else {
         showError(loginError, data.error || 'Invalid password');
       }
@@ -109,7 +129,9 @@
       renderProducts();
     } catch (error) {
       console.error('Failed to load products:', error);
-      alert('Failed to load products');
+      if (window.notify) {
+        window.notify.error('Failed to load products. Please refresh the page.');
+      }
     }
   }
 
@@ -152,12 +174,11 @@
 
   function updateDashboardStats() {
     document.getElementById('total-products').textContent = allProducts.length;
-    document.getElementById('solar-kits-count').textContent =
-      allProducts.filter(p => p.category === 'solar-kits').length;
-    document.getElementById('accessories-count').textContent =
-      allProducts.filter(p => p.category === 'solar-accessories').length;
+    document.getElementById('total-blog-posts').textContent = allBlogPosts.length;
     document.getElementById('featured-count').textContent =
       allProducts.filter(p => p.metadata.featured).length;
+    document.getElementById('featured-blog-count').textContent =
+      allBlogPosts.filter(p => p.featured).length;
   }
 
   function getCategoryName(category) {
@@ -253,13 +274,19 @@
 
       if (response.ok) {
         await loadProducts();
-        alert('Product deleted successfully');
+        if (window.notify) {
+          window.notify.success('Product deleted successfully');
+        }
       } else {
-        alert('Failed to delete product');
+        if (window.notify) {
+          window.notify.error('Failed to delete product');
+        }
       }
     } catch (error) {
       console.error('Delete failed:', error);
-      alert('Failed to delete product');
+      if (window.notify) {
+        window.notify.error('Failed to delete product. Please try again.');
+      }
     }
   }
 
@@ -307,13 +334,19 @@
       if (response.ok) {
         closeProductModal();
         await loadProducts();
-        alert(`Product ${currentEditId ? 'updated' : 'created'} successfully`);
+        if (window.notify) {
+          window.notify.success(`Product ${currentEditId ? 'updated' : 'created'} successfully`);
+        }
       } else {
-        alert(`Failed to ${currentEditId ? 'update' : 'create'} product`);
+        if (window.notify) {
+          window.notify.error(`Failed to ${currentEditId ? 'update' : 'create'} product`);
+        }
       }
     } catch (error) {
       console.error('Save failed:', error);
-      alert('Failed to save product');
+      if (window.notify) {
+        window.notify.error('Failed to save product. Please try again.');
+      }
     }
   }
 
@@ -337,12 +370,19 @@
       if (response.ok) {
         uploadedImages.push(...data.files);
         updateImagePreview();
+        if (window.notify) {
+          window.notify.success(`${data.files.length} image${data.files.length > 1 ? 's' : ''} uploaded successfully`);
+        }
       } else {
-        alert('Failed to upload images');
+        if (window.notify) {
+          window.notify.error('Failed to upload images');
+        }
       }
     } catch (error) {
       console.error('Upload failed:', error);
-      alert('Failed to upload images');
+      if (window.notify) {
+        window.notify.error('Failed to upload images. Please try again.');
+      }
     }
   }
 
@@ -369,6 +409,149 @@
     });
   }
 
+  // ==================== BLOG IMAGE UPLOAD ====================
+
+  async function uploadBlogFeaturedImage(file) {
+    const formData = new FormData();
+    formData.append('images', file);
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      console.log('Featured image upload response:', data);
+
+      if (response.ok && data.files && data.files.length > 0) {
+        const imageUrl = data.files[0];
+
+        // Populate the URL field
+        const urlInput = document.getElementById('blog-featured-image');
+        if (urlInput) {
+          urlInput.value = `../${imageUrl}`;
+        }
+
+        // Show preview
+        const preview = document.getElementById('blog-featured-preview');
+        const previewImg = document.getElementById('blog-featured-preview-img');
+        if (preview && previewImg) {
+          previewImg.src = `../${imageUrl}`;
+          preview.style.display = 'block';
+        }
+
+        if (window.notify) {
+          window.notify.success('Featured image uploaded successfully');
+        }
+      } else {
+        console.error('Featured image upload failed:', data);
+        if (window.notify) {
+          window.notify.error('Failed to upload featured image');
+        }
+      }
+    } catch (error) {
+      console.error('Featured image upload failed:', error);
+      if (window.notify) {
+        window.notify.error('Failed to upload featured image. Please try again.');
+      }
+    }
+  }
+
+  async function uploadBlogImages(files) {
+    const formData = new FormData();
+
+    Array.from(files).forEach(file => {
+      formData.append('images', file);
+    });
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      console.log('Upload response:', data);
+
+      if (response.ok && data.files && data.files.length > 0) {
+        console.log('Files received:', data.files);
+        displayBlogUploadedImages(data.files);
+        if (window.notify) {
+          window.notify.success(`${data.files.length} image${data.files.length > 1 ? 's' : ''} uploaded successfully`);
+        }
+      } else {
+        console.error('Upload failed:', data);
+        if (window.notify) {
+          window.notify.error('Failed to upload images');
+        }
+      }
+    } catch (error) {
+      console.error('Upload failed:', error);
+      if (window.notify) {
+        window.notify.error('Failed to upload images. Please try again.');
+      }
+    }
+  }
+
+  function displayBlogUploadedImages(imageUrls) {
+    const container = document.getElementById('blog-uploaded-images');
+    if (!container) {
+      console.error('Container not found: blog-uploaded-images');
+      return;
+    }
+
+    console.log('Displaying images:', imageUrls);
+
+    imageUrls.forEach(url => {
+      console.log('Processing URL:', url);
+
+      const div = document.createElement('div');
+      div.className = 'blog-image-item';
+      div.style.cssText = 'margin-bottom: 12px; padding: 12px; background: #f5f5f5; border-radius: 4px;';
+
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'display: flex; gap: 12px; align-items: center;';
+
+      // Thumbnail
+      const thumbnail = document.createElement('img');
+      thumbnail.src = `../${url}`;
+      thumbnail.alt = 'Uploaded';
+      thumbnail.style.cssText = 'width: 80px; height: 80px; object-fit: cover; border-radius: 4px;';
+
+      // Input container
+      const inputContainer = document.createElement('div');
+      inputContainer.style.cssText = 'flex: 1;';
+
+      const label = document.createElement('div');
+      label.textContent = 'Click to copy:';
+      label.style.cssText = 'margin-bottom: 4px; font-weight: 600; font-size: 12px; color: #666;';
+
+      const imgTagValue = `<img src="../${url}" alt="Blog image" style="max-width: 100%; height: auto;">`;
+      console.log('Image tag value:', imgTagValue);
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.readOnly = true;
+      input.value = imgTagValue;
+      input.style.cssText = 'width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-family: monospace; font-size: 12px; cursor: pointer;';
+      input.onclick = function() {
+        this.select();
+        document.execCommand('copy');
+        if (window.notify) window.notify.success('Image tag copied!');
+      };
+
+      inputContainer.appendChild(label);
+      inputContainer.appendChild(input);
+
+      wrapper.appendChild(thumbnail);
+      wrapper.appendChild(inputContainer);
+      div.appendChild(wrapper);
+
+      container.appendChild(div);
+    });
+  }
+
   // ==================== EVENT LISTENERS ====================
 
   function setupEventListeners() {
@@ -381,6 +564,17 @@
 
     // Logout
     logoutBtn.addEventListener('click', logout);
+
+    // Auto-format display price when numeric price changes
+    const priceInput = document.getElementById('product-price');
+    const displayPriceInput = document.getElementById('product-display-price');
+
+    priceInput.addEventListener('input', () => {
+      const price = parseFloat(priceInput.value);
+      if (!isNaN(price) && price > 0) {
+        displayPriceInput.value = `Starting at $${price.toFixed(2)}`;
+      }
+    });
 
     // Add product
     addProductBtn.addEventListener('click', () => openProductModal());
@@ -406,6 +600,88 @@
     // Search & filter
     searchInput.addEventListener('input', filterProducts);
     filterCategory.addEventListener('change', filterProducts);
+
+    // Blog search & filter
+    if (searchBlogInput) {
+      searchBlogInput.addEventListener('input', filterBlogPosts);
+    }
+    if (filterBlogCategory) {
+      filterBlogCategory.addEventListener('change', filterBlogPosts);
+    }
+
+    // Blog management
+    if (addBlogBtn) {
+      addBlogBtn.addEventListener('click', () => openBlogModal());
+    }
+    if (closeBlogModalBtn) {
+      closeBlogModalBtn.addEventListener('click', closeBlogModal);
+    }
+    if (cancelBlogBtn) {
+      cancelBlogBtn.addEventListener('click', closeBlogModal);
+    }
+
+    // Click outside blog modal to close
+    if (blogModal) {
+      blogModal.addEventListener('click', (e) => {
+        if (e.target === blogModal) {
+          closeBlogModal();
+        }
+      });
+    }
+
+    // Blog form submit
+    if (blogForm) {
+      blogForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(blogForm);
+        await saveBlogPost(formData);
+      });
+    }
+
+    // Auto-generate slug from title
+    const blogTitleInput = document.getElementById('blog-title');
+    const blogSlugInput = document.getElementById('blog-slug');
+    if (blogTitleInput && blogSlugInput) {
+      blogTitleInput.addEventListener('input', () => {
+        if (!blogSlugInput.value || currentEditBlogId === null) {
+          const slug = blogTitleInput.value
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)/g, '');
+          blogSlugInput.value = slug;
+        }
+      });
+    }
+
+    // Blog content image upload
+    const blogUploadBtn = document.getElementById('blog-upload-btn');
+    const blogImageUpload = document.getElementById('blog-image-upload');
+    if (blogUploadBtn && blogImageUpload) {
+      blogUploadBtn.addEventListener('click', () => {
+        blogImageUpload.click();
+      });
+
+      blogImageUpload.addEventListener('change', async (e) => {
+        if (e.target.files.length > 0) {
+          await uploadBlogImages(e.target.files);
+        }
+      });
+    }
+
+    // Blog featured image upload
+    const blogFeaturedUploadBtn = document.getElementById('blog-featured-upload-btn');
+    const blogFeaturedImageUpload = document.getElementById('blog-featured-image-upload');
+    if (blogFeaturedUploadBtn && blogFeaturedImageUpload) {
+      blogFeaturedUploadBtn.addEventListener('click', () => {
+        blogFeaturedImageUpload.click();
+      });
+
+      blogFeaturedImageUpload.addEventListener('change', async (e) => {
+        if (e.target.files.length > 0) {
+          await uploadBlogFeaturedImage(e.target.files[0]);
+        }
+      });
+    }
 
     // Image upload
     imageUploadArea.addEventListener('click', () => {
@@ -438,7 +714,256 @@
     });
   }
 
+  // ==================== BLOG POSTS ====================
+
+  async function loadBlogPosts() {
+    try {
+      const response = await fetch('/api/blog');
+      const data = await response.json();
+      allBlogPosts = data.posts || [];
+
+      updateDashboardStats();
+      renderBlogPosts();
+    } catch (error) {
+      console.error('Failed to load blog posts:', error);
+      if (window.notify) {
+        window.notify.error('Failed to load blog posts. Please refresh the page.');
+      }
+    }
+  }
+
+  function renderBlogPosts(posts = allBlogPosts) {
+    if (!blogTableBody) return;
+
+    blogTableBody.innerHTML = '';
+
+    if (posts.length === 0) {
+      blogTableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem;">No blog posts found</td></tr>';
+      return;
+    }
+
+    posts.forEach(post => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${post.id}</td>
+        <td>${escapeHtml(post.title)}</td>
+        <td>${escapeHtml(post.category)}</td>
+        <td>${escapeHtml(post.author)}</td>
+        <td>${post.date}</td>
+        <td>${post.featured ? '⭐ Yes' : 'No'}</td>
+        <td>
+          <div class="action-buttons">
+            <button class="btn btn-primary btn-small edit-blog-btn" data-id="${post.id}">Edit</button>
+            <button class="btn btn-danger btn-small delete-blog-btn" data-id="${post.id}">Delete</button>
+          </div>
+        </td>
+      `;
+      blogTableBody.appendChild(tr);
+    });
+
+    // Attach event listeners
+    document.querySelectorAll('.edit-blog-btn').forEach(btn => {
+      btn.addEventListener('click', () => editBlogPost(btn.dataset.id));
+    });
+
+    document.querySelectorAll('.delete-blog-btn').forEach(btn => {
+      btn.addEventListener('click', () => deleteBlogPost(btn.dataset.id));
+    });
+  }
+
+  function filterBlogPosts() {
+    const searchTerm = searchBlogInput.value.toLowerCase();
+    const category = filterBlogCategory.value;
+
+    let filtered = allBlogPosts;
+
+    if (searchTerm) {
+      filtered = filtered.filter(p =>
+        p.title.toLowerCase().includes(searchTerm) ||
+        p.excerpt.toLowerCase().includes(searchTerm) ||
+        p.id.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    if (category) {
+      filtered = filtered.filter(p => p.category === category);
+    }
+
+    renderBlogPosts(filtered);
+  }
+
+  function openBlogModal(post = null) {
+    currentEditBlogId = post ? post.id : null;
+
+    document.getElementById('blog-modal-title').textContent = post ? 'Edit Blog Post' : 'Add Blog Post';
+
+    if (post) {
+      document.getElementById('blog-id').value = post.id;
+      document.getElementById('blog-title').value = post.title;
+      document.getElementById('blog-slug').value = post.slug || '';
+      document.getElementById('blog-category').value = post.category;
+      document.getElementById('blog-excerpt').value = post.excerpt;
+      document.getElementById('blog-content').value = post.content;
+      document.getElementById('blog-author').value = post.author;
+      document.getElementById('blog-date').value = post.date;
+      document.getElementById('blog-featured-image').value = post.featuredImage;
+      document.getElementById('blog-tags').value = Array.isArray(post.tags) ? post.tags.join(', ') : '';
+      document.getElementById('blog-related-products').value = Array.isArray(post.relatedProducts) ? post.relatedProducts.join(', ') : '';
+      document.getElementById('blog-featured').checked = post.featured || false;
+
+      // Show featured image preview if exists
+      if (post.featuredImage) {
+        const preview = document.getElementById('blog-featured-preview');
+        const previewImg = document.getElementById('blog-featured-preview-img');
+        if (preview && previewImg) {
+          previewImg.src = post.featuredImage;
+          preview.style.display = 'block';
+        }
+      }
+    } else {
+      blogForm.reset();
+      document.getElementById('blog-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('blog-author').value = 'Solar Energy Team';
+    }
+
+    blogModal.style.display = 'flex';
+  }
+
+  function closeBlogModal() {
+    blogModal.style.display = 'none';
+    blogForm.reset();
+    currentEditBlogId = null;
+    // Clear uploaded images display
+    const uploadedImagesContainer = document.getElementById('blog-uploaded-images');
+    if (uploadedImagesContainer) {
+      uploadedImagesContainer.innerHTML = '';
+    }
+    // Clear featured image preview
+    const featuredPreview = document.getElementById('blog-featured-preview');
+    if (featuredPreview) {
+      featuredPreview.style.display = 'none';
+    }
+  }
+
+  async function editBlogPost(id) {
+    const post = allBlogPosts.find(p => p.id === id);
+    if (post) {
+      openBlogModal(post);
+    }
+  }
+
+  async function deleteBlogPost(id) {
+    if (!confirm('Are you sure you want to delete this blog post?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/blog/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        await loadBlogPosts();
+        if (window.notify) {
+          window.notify.success('Blog post deleted successfully');
+        }
+      } else {
+        if (window.notify) {
+          window.notify.error('Failed to delete blog post');
+        }
+      }
+    } catch (error) {
+      console.error('Delete failed:', error);
+      if (window.notify) {
+        window.notify.error('Failed to delete blog post. Please try again.');
+      }
+    }
+  }
+
+  async function saveBlogPost(formData) {
+    const tagsValue = formData.get('tags') || '';
+    const relatedProductsValue = formData.get('relatedProducts') || '';
+
+    const post = {
+      title: formData.get('title'),
+      slug: formData.get('slug'),
+      excerpt: formData.get('excerpt'),
+      content: formData.get('content'),
+      category: formData.get('category'),
+      author: formData.get('author'),
+      date: formData.get('date'),
+      featuredImage: formData.get('featuredImage'),
+      tags: tagsValue.split(',').map(t => t.trim()).filter(t => t),
+      relatedProducts: relatedProductsValue.split(',').map(t => t.trim()).filter(t => t),
+      featured: formData.get('featured') === 'on'
+    };
+
+    try {
+      const method = currentEditBlogId ? 'PUT' : 'POST';
+      const url = currentEditBlogId ? `/api/blog/${currentEditBlogId}` : '/api/blog';
+
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(post)
+      });
+
+      if (response.ok) {
+        closeBlogModal();
+        await loadBlogPosts();
+        if (window.notify) {
+          window.notify.success(`Blog post ${currentEditBlogId ? 'updated' : 'created'} successfully`);
+        }
+      } else {
+        if (window.notify) {
+          window.notify.error(`Failed to ${currentEditBlogId ? 'update' : 'create'} blog post`);
+        }
+      }
+    } catch (error) {
+      console.error('Save failed:', error);
+      if (window.notify) {
+        window.notify.error('Failed to save blog post. Please try again.');
+      }
+    }
+  }
+
+  // ==================== TAB SWITCHING ====================
+
+  function setupTabSwitching() {
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabName = button.dataset.tab;
+        switchTab(tabName);
+      });
+    });
+  }
+
+  function switchTab(tabName) {
+    currentTab = tabName;
+
+    // Update active button
+    tabButtons.forEach(btn => {
+      if (btn.dataset.tab === tabName) {
+        btn.classList.add('admin-tab--active');
+      } else {
+        btn.classList.remove('admin-tab--active');
+      }
+    });
+
+    // Show/hide content
+    document.getElementById('dashboard-view').style.display = tabName === 'dashboard' ? 'block' : 'none';
+    document.getElementById('products-view').style.display = tabName === 'products' ? 'block' : 'none';
+    document.getElementById('blog-view').style.display = tabName === 'blog' ? 'block' : 'none';
+  }
+
   // ==================== UTILITIES ====================
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
 
   function showError(element, message) {
     element.textContent = message;

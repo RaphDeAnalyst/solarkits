@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse all solar accessories including batteries, inverters, charge controllers, cables, and mounting hardware. Essential components for your solar system.">
+    <meta name="keywords" content="solar accessories, solar batteries, solar inverters, charge controllers, solar cables, solar mounting">
+
+    <title>Solar Accessories - Batteries, Inverters & More | Solarkits</title>
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../images/site/favicon.svg">
+</head>
+<body data-category="solar-accessories">
+    <!-- Skip to Content Link - Accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <!-- Header & Navigation -->
+    <header class="header" id="header" role="banner">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav__logo">
+                    <a href="../" class="logo">
+                        <img src="../images/site/logo.svg" alt="Solarkits Logo" class="logo__icon" width="40" height="40">
+                        <span class="logo__text">solarkits</span>
+                    </a>
+                </div>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="../" class="nav__link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="blog.html" class="nav__link">Blog</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="categories.html" class="nav__link nav__link--active">Shop</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="about.html" class="nav__link">About</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="contact.html" class="nav__link">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="nav__search">
+                        <input
+                            type="search"
+                            class="search__input"
+                            id="search-input"
+                            placeholder="Search products..."
+                            aria-label="Search products">
+                        <button class="search__button" aria-label="Search">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" id="main-content" role="main">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-header__title" id="category-title">Solar Accessories</h1>
+                <p class="page-header__description">
+                    Essential solar components including batteries, inverters, charge controllers, and more.
+                    Build and upgrade your solar power system.
+                </p>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products" id="products">
+            <!-- Price Disclaimer Banner -->
+            <div class="price-disclaimer">
+                <div class="container">
+                    <svg class="price-disclaimer__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    <p class="price-disclaimer__text">
+                        Prices and availability are accurate as of the date shown on each product and may change.
+                        Click the buttons below to see current prices.
+                    </p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="products__header">
+                    <h2 class="section__title">All Products</h2>
+                    <div class="products__info">
+                        <span id="products-count">0</span> products found
+                    </div>
+                </div>
+
+                <!-- Products Grid - Populated by JavaScript -->
+                <div class="products__grid" id="products-grid">
+                    <div class="loading">
+                        <div class="loading__spinner"></div>
+                        <p>Loading products...</p>
+                    </div>
+                </div>
+
+                <!-- No Results Message -->
+                <div class="no-results" id="no-results" style="display: none;">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2"/>
+                        <path d="M32 20v16M32 44h.02" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h3>No products found</h3>
+                    <p>No products available in this category at the moment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Affiliate Disclaimer Banner -->
+        <section class="disclaimer-banner">
+            <div class="container">
+                <div class="disclaimer-banner__content">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <p>
+                        <strong>Affiliate Disclosure:</strong> As an Amazon Associate and AliExpress affiliate,
+                        we earn from qualifying purchases. Prices and availability are accurate as of the date/time
+                        indicated and may change.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <!-- Brand Column -->
+                <div class="footer__column">
+                    <div class="footer__logo">
+                        <img src="../images/site/logo.svg" alt="Solarkits Logo" class="logo__icon" width="40" height="40">
+                        <span class="logo__text">solarkits</span>
+                    </div>
+                    <p class="footer__description">
+                        Your trusted source for solar energy products and solutions.
+                        Powering homes and lives with clean, reliable solar energy.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer__column">
+                    <h3 class="footer__title">Quick Links</h3>
+                    <ul class="footer__links">
+                        <li><a href="../">Home</a></li>
+                        <li><a href="../#categories">Categories</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="footer__column">
+                    <h3 class="footer__title">Legal</h3>
+                    <ul class="footer__links">
+                        <li><a href="disclaimer.html">Affiliate Disclaimer</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter (Future) -->
+                <div class="footer__column">
+                    <h3 class="footer__title">Stay Updated</h3>
+                    <p class="footer__newsletter-text">Get the latest solar deals and energy tips delivered to your inbox.</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input
+                            type="email"
+                            class="newsletter__input"
+                            placeholder="Your email"
+                            aria-label="Email address"
+                            required>
+                        <button type="submit" class="newsletter__button">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2025 Solarkits. All rights reserved.
+                </p>
+                <p class="footer__disclaimer">
+                    As an Amazon Associate and AliExpress affiliate, we earn from qualifying purchases.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image gallery">
+        <button class="lightbox__close" aria-label="Close gallery">&times;</button>
+        <button class="lightbox__prev" aria-label="Previous image">&lsaquo;</button>
+        <button class="lightbox__next" aria-label="Next image">&rsaquo;</button>
+        <img class="lightbox__image" src="" alt="">
+        <div class="lightbox__counter" aria-live="polite"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/notification.js"></script>
+    <script src="../js/lightbox.js"></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/category.js" defer></script>
+    <script src="../js/search.js" defer></script>
+</body>
+</html>
