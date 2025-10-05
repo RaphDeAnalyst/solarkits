@@ -25,7 +25,7 @@
     try {
       showLoading(true);
 
-      const response = await fetch('data/products.json');
+      const response = await fetch('/api/public/products');
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

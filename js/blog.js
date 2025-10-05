@@ -39,7 +39,7 @@
    */
   async function loadBlogPosts() {
     try {
-      const response = await fetch('../data/blog.json');
+      const response = await fetch('/api/public/blog');
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

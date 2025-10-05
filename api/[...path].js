@@ -133,6 +133,18 @@ app.get('/api/check-auth', (req, res) => {
   res.json({ authenticated: req.signedCookies.authenticated === 'true' });
 });
 
+// ==================== PUBLIC API ROUTES (No Auth) ====================
+
+app.get('/api/public/products', async (req, res) => {
+  const data = await readProducts();
+  res.json(data);
+});
+
+app.get('/api/public/blog', async (req, res) => {
+  const data = await readBlogPosts();
+  res.json(data);
+});
+
 // ==================== PRODUCTS API ROUTES ====================
 
 app.get('/api/products', requireAuth, async (req, res) => {
