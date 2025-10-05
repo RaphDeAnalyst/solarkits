@@ -396,7 +396,7 @@
       const div = document.createElement('div');
       div.className = 'preview-item';
       div.innerHTML = `
-        <img src="../${url}" alt="Product image ${index + 1}">
+        <img src="${url}" alt="Product image ${index + 1}">
         <button type="button" class="preview-remove" data-index="${index}">&times;</button>
       `;
       imagePreview.appendChild(div);
@@ -433,14 +433,14 @@
         // Populate the URL field
         const urlInput = document.getElementById('blog-featured-image');
         if (urlInput) {
-          urlInput.value = `../${imageUrl}`;
+          urlInput.value = imageUrl;
         }
 
         // Show preview
         const preview = document.getElementById('blog-featured-preview');
         const previewImg = document.getElementById('blog-featured-preview-img');
         if (preview && previewImg) {
-          previewImg.src = `../${imageUrl}`;
+          previewImg.src = imageUrl;
           preview.style.display = 'block';
         }
 
@@ -518,7 +518,7 @@
 
       // Thumbnail
       const thumbnail = document.createElement('img');
-      thumbnail.src = `../${url}`;
+      thumbnail.src = url;
       thumbnail.alt = 'Uploaded';
       thumbnail.style.cssText = 'width: 80px; height: 80px; object-fit: cover; border-radius: 4px;';
 
@@ -530,7 +530,7 @@
       label.textContent = 'Click to copy:';
       label.style.cssText = 'margin-bottom: 4px; font-weight: 600; font-size: 12px; color: #666;';
 
-      const imgTagValue = `<img src="../${url}" alt="Blog image" style="max-width: 100%; height: auto;">`;
+      const imgTagValue = `<img src="${url}" alt="Blog image" style="max-width: 100%; height: auto;">`;
       console.log('Image tag value:', imgTagValue);
 
       const input = document.createElement('input');
