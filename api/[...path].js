@@ -5,7 +5,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -41,17 +41,8 @@ app.use('/api/', apiLimiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Session configuration
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'your-secret-key-change-this',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production'
-  }
-}));
+// Cookie parser for stateless auth (works in serverless environment)
+app.use(cookieParser(process.env.SESSION_SECRET || 'your-secret-key-change-this'));
 
 // File paths (using __dirname works in both local and Vercel environments)
 const PRODUCTS_FILE = path.join(__dirname, '..', 'data', 'products.json');
@@ -98,9 +89,9 @@ function writeBlogPosts(data) {
   }
 }
 
-// Authentication middleware
+// Authentication middleware (cookie-based for serverless compatibility)
 function requireAuth(req, res, next) {
-  if (req.session && req.session.authenticated) {
+  if (req.signedCookies && req.signedCookies.authenticated === 'true') {
     return next();
   }
   res.status(401).json({ error: 'Unauthorized' });
@@ -111,7 +102,14 @@ function requireAuth(req, res, next) {
 app.post('/api/login', authLimiter, (req, res) => {
   const { password } = req.body;
   if (password === process.env.ADMIN_PASSWORD || password === 'admin123') {
-    req.session.authenticated = true;
+    // Set signed cookie (works in serverless)
+    res.cookie('authenticated', 'true', {
+      signed: true,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      sameSite: 'lax'
+    });
     res.json({ success: true, message: 'Login successful' });
   } else {
     res.status(401).json({ error: 'Invalid password' });
@@ -119,12 +117,12 @@ app.post('/api/login', authLimiter, (req, res) => {
 });
 
 app.post('/api/logout', (req, res) => {
-  req.session.destroy();
+  res.clearCookie('authenticated');
   res.json({ success: true, message: 'Logged out' });
 });
 
 app.get('/api/check-auth', (req, res) => {
-  res.json({ authenticated: !!req.session.authenticated });
+  res.json({ authenticated: req.signedCookies.authenticated === 'true' });
 });
 
 // ==================== PRODUCTS API ROUTES ====================
