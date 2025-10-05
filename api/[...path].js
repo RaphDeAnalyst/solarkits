@@ -35,7 +35,7 @@ const authLimiter = rateLimit({
   skipSuccessfulRequests: true
 });
 
-app.use('/', apiLimiter);
+app.use('/api/', apiLimiter);
 
 // Middleware
 app.use(bodyParser.json());
@@ -108,7 +108,7 @@ function requireAuth(req, res, next) {
 
 // ==================== AUTHENTICATION ROUTES ====================
 
-app.post('/login', authLimiter, (req, res) => {
+app.post('/api/login', authLimiter, (req, res) => {
   const { password } = req.body;
   if (password === process.env.ADMIN_PASSWORD || password === 'admin123') {
     req.session.authenticated = true;
@@ -118,18 +118,18 @@ app.post('/login', authLimiter, (req, res) => {
   }
 });
 
-app.post('/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
   req.session.destroy();
   res.json({ success: true, message: 'Logged out' });
 });
 
-app.get('/check-auth', (req, res) => {
+app.get('/api/check-auth', (req, res) => {
   res.json({ authenticated: !!req.session.authenticated });
 });
 
 // ==================== PRODUCTS API ROUTES ====================
 
-app.get('/products', requireAuth, (req, res) => {
+app.get('/api/products', requireAuth, (req, res) => {
   const data = readProducts();
   res.json(data);
 });
@@ -144,7 +144,7 @@ app.get('/api/products/:id', requireAuth, (req, res) => {
   }
 });
 
-app.post('/products', requireAuth, (req, res) => {
+app.post('/api/products', requireAuth, (req, res) => {
   const data = readProducts();
   const newProduct = req.body;
 
@@ -177,7 +177,7 @@ app.post('/products', requireAuth, (req, res) => {
   }
 });
 
-app.put('/products/:id', requireAuth, (req, res) => {
+app.put('/api/products/:id', requireAuth, (req, res) => {
   const data = readProducts();
   const index = data.products.findIndex(p => p.id === req.params.id);
 
@@ -204,7 +204,7 @@ app.put('/products/:id', requireAuth, (req, res) => {
   }
 });
 
-app.delete('/products/:id', requireAuth, (req, res) => {
+app.delete('/api/products/:id', requireAuth, (req, res) => {
   const data = readProducts();
   const index = data.products.findIndex(p => p.id === req.params.id);
 
@@ -223,7 +223,7 @@ app.delete('/products/:id', requireAuth, (req, res) => {
 
 // ==================== BLOG API ROUTES ====================
 
-app.get('/blog', requireAuth, (req, res) => {
+app.get('/api/blog', requireAuth, (req, res) => {
   const data = readBlogPosts();
   res.json(data);
 });
@@ -238,7 +238,7 @@ app.get('/api/blog/:id', requireAuth, (req, res) => {
   }
 });
 
-app.post('/blog', requireAuth, (req, res) => {
+app.post('/api/blog', requireAuth, (req, res) => {
   const data = readBlogPosts();
   const newPost = req.body;
 
@@ -270,7 +270,7 @@ app.post('/blog', requireAuth, (req, res) => {
   }
 });
 
-app.put('/blog/:id', requireAuth, (req, res) => {
+app.put('/api/blog/:id', requireAuth, (req, res) => {
   const data = readBlogPosts();
   const index = data.posts.findIndex(p => p.id === req.params.id);
 
@@ -292,7 +292,7 @@ app.put('/blog/:id', requireAuth, (req, res) => {
   }
 });
 
-app.delete('/blog/:id', requireAuth, (req, res) => {
+app.delete('/api/blog/:id', requireAuth, (req, res) => {
   const data = readBlogPosts();
   const index = data.posts.findIndex(p => p.id === req.params.id);
 
