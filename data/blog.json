@@ -1,6 +1,30 @@
 {
   "posts": [
     {
+      "title": "df fd",
+      "slug": "df-fd",
+      "excerpt": "dfsfsdfsd",
+      "content": "<p>fdsfs<p>\n\n<img src=\"images/products/1759634628489-736019177.png\" alt=\"Blog image\" style=\"max-width: 100%; height: auto;\">",
+      "category": "Going Solar",
+      "author": "Solar Energy Team",
+      "date": "2025-10-05",
+      "featuredImage": "images/products/1759634644167-678138670.jpeg",
+      "tags": [
+        "solar kits",
+        "solar panels",
+        "installation",
+        "guide",
+        "home energy"
+      ],
+      "relatedProducts": [
+        "sk-001",
+        "sa-002",
+        "he-003"
+      ],
+      "featured": true,
+      "id": "blog-012"
+    },
+    {
       "title": "How to Choose the Right Solar Kit for Your Home",
       "slug": "how-to-choose-the-right-solar-kit-for-your-home",
       "excerpt": "Choosing the right solar kit for your home can save you time, money, and energy. Here’s a step-by-step guide to help you make the best choice.",
