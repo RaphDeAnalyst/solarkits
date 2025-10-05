@@ -328,19 +328,24 @@
             try {
                 // Get post ID from URL parameter (e.g., ?post=blog-001)
                 const urlParams = new URLSearchParams(window.location.search);
-                const postId = urlParams.get('post') || 'blog-001'; // Default to first post
+                const postId = urlParams.get('post');
 
-                // Fetch blog data
-                const response = await fetch('../data/blog.json');
-                const data = await response.json();
+                if (!postId) {
+                    console.error('No post ID provided');
+                    return;
+                }
 
-                // Find the specific post
-                const post = data.posts.find(p => p.id === postId);
+                // Fetch single blog post from API
+                const response = await fetch(`/api/public/blog/${postId}`);
+                const post = await response.json();
 
                 if (post) {
                     displayBlogPost(post);
                     loadRecommendedProducts(post.relatedProducts || []);
-                    loadRelatedPosts(data.posts, post);
+                    // Fetch all posts for related posts section
+                    const allPostsResponse = await fetch('/api/public/blog');
+                    const allPostsData = await allPostsResponse.json();
+                    loadRelatedPosts(allPostsData.posts, post);
                 }
             } catch (error) {
                 console.error('Error loading blog post:', error);
@@ -385,7 +390,7 @@
             if (!productIds || productIds.length === 0) return;
 
             try {
-                const response = await fetch('../data/products.json');
+                const response = await fetch('/api/public/products');
                 const data = await response.json();
 
                 const recommendedProducts = data.products.filter(p => productIds.includes(p.id));
