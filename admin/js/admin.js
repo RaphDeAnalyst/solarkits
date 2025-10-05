@@ -5,6 +5,9 @@
 (function() {
   'use strict';
 
+  // API Base URL (works for both localhost and production)
+  const API_BASE = window.location.origin;
+
   // State
   let allProducts = [];
   let allBlogPosts = [];
@@ -60,7 +63,7 @@
 
   async function checkAuth() {
     try {
-      const response = await fetch('/api/check-auth');
+      const response = await fetch(`${API_BASE}/api/check-auth`);
       const data = await response.json();
 
       if (data.authenticated) {
@@ -78,7 +81,7 @@
 
   async function login(password) {
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch(`${API_BASE}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password })
@@ -100,7 +103,7 @@
 
   async function logout() {
     try {
-      await fetch('/api/logout', { method: 'POST' });
+      await fetch(`${API_BASE}/api/logout`, { method: 'POST' });
       showLoginScreen();
     } catch (error) {
       console.error('Logout failed:', error);
@@ -121,7 +124,7 @@
 
   async function loadProducts() {
     try {
-      const response = await fetch('/api/products');
+      const response = await fetch(`${API_BASE}/api/products`);
       const data = await response.json();
       allProducts = data.products || [];
 
@@ -268,7 +271,7 @@
     }
 
     try {
-      const response = await fetch(`/api/products/${id}`, {
+      const response = await fetch(`${API_BASE}/api/products/${id}`, {
         method: 'DELETE'
       });
 
@@ -323,7 +326,7 @@
 
     try {
       const method = currentEditId ? 'PUT' : 'POST';
-      const url = currentEditId ? `/api/products/${currentEditId}` : '/api/products';
+      const url = currentEditId ? `${API_BASE}/api/products/${currentEditId}` : `${API_BASE}/api/products`;
 
       const response = await fetch(url, {
         method,
@@ -360,7 +363,7 @@
     });
 
     try {
-      const response = await fetch('/api/upload', {
+      const response = await fetch(`${API_BASE}/api/upload`, {
         method: 'POST',
         body: formData
       });
@@ -416,7 +419,7 @@
     formData.append('images', file);
 
     try {
-      const response = await fetch('/api/upload', {
+      const response = await fetch(`${API_BASE}/api/upload`, {
         method: 'POST',
         body: formData
       });
@@ -466,7 +469,7 @@
     });
 
     try {
-      const response = await fetch('/api/upload', {
+      const response = await fetch(`${API_BASE}/api/upload`, {
         method: 'POST',
         body: formData
       });
@@ -718,7 +721,7 @@
 
   async function loadBlogPosts() {
     try {
-      const response = await fetch('/api/blog');
+      const response = await fetch(`${API_BASE}/api/blog`);
       const data = await response.json();
       allBlogPosts = data.posts || [];
 
@@ -858,7 +861,7 @@
     }
 
     try {
-      const response = await fetch(`/api/blog/${id}`, {
+      const response = await fetch(`${API_BASE}/api/blog/${id}`, {
         method: 'DELETE'
       });
 
@@ -900,7 +903,7 @@
 
     try {
       const method = currentEditBlogId ? 'PUT' : 'POST';
-      const url = currentEditBlogId ? `/api/blog/${currentEditBlogId}` : '/api/blog';
+      const url = currentEditBlogId ? `${API_BASE}/api/blog/${currentEditBlogId}` : `${API_BASE}/api/blog`;
 
       const response = await fetch(url, {
         method,
