@@ -140,8 +140,8 @@ app.get('/api/products', requireAuth, async (req, res) => {
   res.json(data);
 });
 
-app.get('/api/products/:id', requireAuth, (req, res) => {
-  const data = readProducts();
+app.get('/api/products/:id', requireAuth, async (req, res) => {
+  const data = await readProducts();
   const product = data.products.find(p => p.id === req.params.id);
   if (product) {
     res.json(product);
@@ -234,8 +234,8 @@ app.get('/api/blog', requireAuth, async (req, res) => {
   res.json(data);
 });
 
-app.get('/api/blog/:id', requireAuth, (req, res) => {
-  const data = readBlogPosts();
+app.get('/api/blog/:id', requireAuth, async (req, res) => {
+  const data = await readBlogPosts();
   const post = data.posts.find(p => p.id === req.params.id);
   if (post) {
     res.json(post);
