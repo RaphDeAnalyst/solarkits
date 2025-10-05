@@ -152,6 +152,30 @@ app.get('/api/check-auth', (req, res) => {
   res.json({ authenticated: !!req.session.authenticated });
 });
 
+// ==================== PUBLIC API ROUTES (No Auth) ====================
+
+// Public products endpoint
+app.get('/api/public/products', (req, res) => {
+  const data = readProducts();
+  res.json(data);
+});
+
+// Public blog endpoints
+app.get('/api/public/blog', (req, res) => {
+  const data = readBlogPosts();
+  res.json(data);
+});
+
+app.get('/api/public/blog/:id', (req, res) => {
+  const data = readBlogPosts();
+  const post = data.posts.find(p => p.id === req.params.id || p.slug === req.params.id);
+  if (post) {
+    res.json(post);
+  } else {
+    res.status(404).json({ error: 'Blog post not found' });
+  }
+});
+
 // ==================== PRODUCTS API ROUTES ====================
 
 const PRODUCTS_FILE = './data/products.json';
