@@ -341,30 +341,46 @@
         document.addEventListener('DOMContentLoaded', async function() {
             // Load Featured Blog Posts
             try {
-                const blogResponse = await fetch('data/blog.json');
+                const blogResponse = await fetch('/api/public/blog');
                 const blogData = await blogResponse.json();
                 const featuredPosts = blogData.posts.filter(post => post.featured);
 
                 const guidesGrid = document.getElementById('featured-guides-grid');
-                if (guidesGrid && featuredPosts.length > 0) {
-                    guidesGrid.innerHTML = featuredPosts.map(post => createBlogCard(post)).join('');
+                if (guidesGrid) {
+                    if (featuredPosts.length > 0) {
+                        guidesGrid.innerHTML = featuredPosts.map(post => createBlogCard(post)).join('');
+                    } else {
+                        guidesGrid.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">No featured guides available yet. Check back soon!</p>';
+                    }
                 }
             } catch (error) {
                 console.error('Error loading featured guides:', error);
+                const guidesGrid = document.getElementById('featured-guides-grid');
+                if (guidesGrid) {
+                    guidesGrid.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">Unable to load guides. Please try again later.</p>';
+                }
             }
 
             // Load Top Pick Products
             try {
-                const productsResponse = await fetch('data/products.json');
+                const productsResponse = await fetch('/api/public/products');
                 const productsData = await productsResponse.json();
                 const topPicks = productsData.products.filter(p => p.metadata && p.metadata.featured).slice(0, 4);
 
                 const picksGrid = document.getElementById('top-picks-grid');
-                if (picksGrid && topPicks.length > 0) {
-                    picksGrid.innerHTML = topPicks.map(product => createProductCard(product)).join('');
+                if (picksGrid) {
+                    if (topPicks.length > 0) {
+                        picksGrid.innerHTML = topPicks.map(product => createProductCard(product)).join('');
+                    } else {
+                        picksGrid.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">No featured products available yet. Check back soon!</p>';
+                    }
                 }
             } catch (error) {
                 console.error('Error loading top picks:', error);
+                const picksGrid = document.getElementById('top-picks-grid');
+                if (picksGrid) {
+                    picksGrid.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">Unable to load products. Please try again later.</p>';
+                }
             }
         });
 
