@@ -53,9 +53,9 @@ app.use(session({
   }
 }));
 
-// File paths
-const PRODUCTS_FILE = path.join(process.cwd(), 'data', 'products.json');
-const BLOG_FILE = path.join(process.cwd(), 'data', 'blog.json');
+// File paths (using __dirname works in both local and Vercel environments)
+const PRODUCTS_FILE = path.join(__dirname, '..', 'data', 'products.json');
+const BLOG_FILE = path.join(__dirname, '..', 'data', 'blog.json');
 
 // Helper functions
 function readProducts() {
