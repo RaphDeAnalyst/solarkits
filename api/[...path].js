@@ -11,6 +11,7 @@ const path = require('path');
 const fs = require('fs');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const { kv } = require('@vercel/kv');
 
 const app = express();
 
@@ -48,20 +49,20 @@ app.use(cookieParser(process.env.SESSION_SECRET || 'your-secret-key-change-this'
 const PRODUCTS_FILE = path.join(__dirname, '..', 'data', 'products.json');
 const BLOG_FILE = path.join(__dirname, '..', 'data', 'blog.json');
 
-// Helper functions
-function readProducts() {
+// Helper functions (using Vercel KV for persistent storage)
+async function readProducts() {
   try {
-    const data = fs.readFileSync(PRODUCTS_FILE, 'utf8');
-    return JSON.parse(data);
+    const data = await kv.get('products');
+    return data || { products: [] };
   } catch (error) {
     console.error('Error reading products:', error);
     return { products: [] };
   }
 }
 
-function writeProducts(data) {
+async function writeProducts(data) {
   try {
-    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(data, null, 2), 'utf8');
+    await kv.set('products', data);
     return true;
   } catch (error) {
     console.error('Error writing products:', error);
@@ -69,19 +70,19 @@ function writeProducts(data) {
   }
 }
 
-function readBlogPosts() {
+async function readBlogPosts() {
   try {
-    const data = fs.readFileSync(BLOG_FILE, 'utf8');
-    return JSON.parse(data);
+    const data = await kv.get('blog');
+    return data || { posts: [] };
   } catch (error) {
     console.error('Error reading blog posts:', error);
     return { posts: [] };
   }
 }
 
-function writeBlogPosts(data) {
+async function writeBlogPosts(data) {
   try {
-    fs.writeFileSync(BLOG_FILE, JSON.stringify(data, null, 2), 'utf8');
+    await kv.set('blog', data);
     return true;
   } catch (error) {
     console.error('Error writing blog posts:', error);
@@ -127,8 +128,8 @@ app.get('/api/check-auth', (req, res) => {
 
 // ==================== PRODUCTS API ROUTES ====================
 
-app.get('/api/products', requireAuth, (req, res) => {
-  const data = readProducts();
+app.get('/api/products', requireAuth, async (req, res) => {
+  const data = await readProducts();
   res.json(data);
 });
 
@@ -142,8 +143,8 @@ app.get('/api/products/:id', requireAuth, (req, res) => {
   }
 });
 
-app.post('/api/products', requireAuth, (req, res) => {
-  const data = readProducts();
+app.post('/api/products', requireAuth, async (req, res) => {
+  const data = await readProducts();
   const newProduct = req.body;
 
   if (!newProduct.id) {
@@ -168,15 +169,15 @@ app.post('/api/products', requireAuth, (req, res) => {
 
   data.products.push(newProduct);
 
-  if (writeProducts(data)) {
+  if (await writeProducts(data)) {
     res.json({ success: true, product: newProduct });
   } else {
     res.status(500).json({ error: 'Failed to save product' });
   }
 });
 
-app.put('/api/products/:id', requireAuth, (req, res) => {
-  const data = readProducts();
+app.put('/api/products/:id', requireAuth, async (req, res) => {
+  const data = await readProducts();
   const index = data.products.findIndex(p => p.id === req.params.id);
 
   if (index === -1) {
@@ -195,15 +196,15 @@ app.put('/api/products/:id', requireAuth, (req, res) => {
 
   data.products[index] = updatedProduct;
 
-  if (writeProducts(data)) {
+  if (await writeProducts(data)) {
     res.json({ success: true, product: updatedProduct });
   } else {
     res.status(500).json({ error: 'Failed to update product' });
   }
 });
 
-app.delete('/api/products/:id', requireAuth, (req, res) => {
-  const data = readProducts();
+app.delete('/api/products/:id', requireAuth, async (req, res) => {
+  const data = await readProducts();
   const index = data.products.findIndex(p => p.id === req.params.id);
 
   if (index === -1) {
@@ -212,7 +213,7 @@ app.delete('/api/products/:id', requireAuth, (req, res) => {
 
   data.products.splice(index, 1);
 
-  if (writeProducts(data)) {
+  if (await writeProducts(data)) {
     res.json({ success: true, message: 'Product deleted' });
   } else {
     res.status(500).json({ error: 'Failed to delete product' });
@@ -221,8 +222,8 @@ app.delete('/api/products/:id', requireAuth, (req, res) => {
 
 // ==================== BLOG API ROUTES ====================
 
-app.get('/api/blog', requireAuth, (req, res) => {
-  const data = readBlogPosts();
+app.get('/api/blog', requireAuth, async (req, res) => {
+  const data = await readBlogPosts();
   res.json(data);
 });
 
@@ -236,8 +237,8 @@ app.get('/api/blog/:id', requireAuth, (req, res) => {
   }
 });
 
-app.post('/api/blog', requireAuth, (req, res) => {
-  const data = readBlogPosts();
+app.post('/api/blog', requireAuth, async (req, res) => {
+  const data = await readBlogPosts();
   const newPost = req.body;
 
   if (!newPost.id) {
@@ -261,15 +262,15 @@ app.post('/api/blog', requireAuth, (req, res) => {
 
   data.posts.unshift(newPost);
 
-  if (writeBlogPosts(data)) {
+  if (await writeBlogPosts(data)) {
     res.json({ success: true, post: newPost });
   } else {
     res.status(500).json({ error: 'Failed to save blog post' });
   }
 });
 
-app.put('/api/blog/:id', requireAuth, (req, res) => {
-  const data = readBlogPosts();
+app.put('/api/blog/:id', requireAuth, async (req, res) => {
+  const data = await readBlogPosts();
   const index = data.posts.findIndex(p => p.id === req.params.id);
 
   if (index === -1) {
@@ -283,15 +284,15 @@ app.put('/api/blog/:id', requireAuth, (req, res) => {
 
   data.posts[index] = updatedPost;
 
-  if (writeBlogPosts(data)) {
+  if (await writeBlogPosts(data)) {
     res.json({ success: true, post: updatedPost });
   } else {
     res.status(500).json({ error: 'Failed to update blog post' });
   }
 });
 
-app.delete('/api/blog/:id', requireAuth, (req, res) => {
-  const data = readBlogPosts();
+app.delete('/api/blog/:id', requireAuth, async (req, res) => {
+  const data = await readBlogPosts();
   const index = data.posts.findIndex(p => p.id === req.params.id);
 
   if (index === -1) {
@@ -300,10 +301,30 @@ app.delete('/api/blog/:id', requireAuth, (req, res) => {
 
   data.posts.splice(index, 1);
 
-  if (writeBlogPosts(data)) {
+  if (await writeBlogPosts(data)) {
     res.json({ success: true, message: 'Blog post deleted' });
   } else {
     res.status(500).json({ error: 'Failed to delete blog post' });
+  }
+});
+
+// ==================== DATA MIGRATION (One-time use) ====================
+app.post('/api/migrate', requireAuth, async (req, res) => {
+  try {
+    const productsData = JSON.parse(fs.readFileSync(PRODUCTS_FILE, 'utf8'));
+    const blogData = JSON.parse(fs.readFileSync(BLOG_FILE, 'utf8'));
+
+    await kv.set('products', productsData);
+    await kv.set('blog', blogData);
+
+    res.json({
+      success: true,
+      message: 'Data migrated to KV',
+      products: productsData.products.length,
+      posts: blogData.posts.length
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Migration failed: ' + error.message });
   }
 });
 
