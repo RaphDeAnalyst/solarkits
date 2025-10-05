@@ -145,6 +145,16 @@ app.get('/api/public/blog', async (req, res) => {
   res.json(data);
 });
 
+app.get('/api/public/blog/:id', async (req, res) => {
+  const data = await readBlogPosts();
+  const post = data.posts.find(p => p.id === req.params.id || p.slug === req.params.id);
+  if (post) {
+    res.json(post);
+  } else {
+    res.status(404).json({ error: 'Blog post not found' });
+  }
+});
+
 // ==================== PRODUCTS API ROUTES ====================
 
 app.get('/api/products', requireAuth, async (req, res) => {
