@@ -12,6 +12,7 @@ const fs = require('fs');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { kv } = require('@vercel/kv');
+const { put } = require('@vercel/blob');
 
 const app = express();
 
@@ -44,6 +45,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Cookie parser for stateless auth (works in serverless environment)
 app.use(cookieParser(process.env.SESSION_SECRET || 'your-secret-key-change-this'));
+
+// Multer for file uploads (memory storage for Blob upload)
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
+});
 
 // File paths (using __dirname works in both local and Vercel environments)
 const PRODUCTS_FILE = path.join(__dirname, '..', 'data', 'products.json');
@@ -305,6 +312,29 @@ app.delete('/api/blog/:id', requireAuth, async (req, res) => {
     res.json({ success: true, message: 'Blog post deleted' });
   } else {
     res.status(500).json({ error: 'Failed to delete blog post' });
+  }
+});
+
+// ==================== IMAGE UPLOAD (Vercel Blob) ====================
+app.post('/api/upload', requireAuth, upload.array('images', 10), async (req, res) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'No files uploaded' });
+    }
+
+    const uploadPromises = req.files.map(async (file) => {
+      const blob = await put(file.originalname, file.buffer, {
+        access: 'public',
+        token: process.env.BLOB_READ_WRITE_TOKEN
+      });
+      return blob.url;
+    });
+
+    const urls = await Promise.all(uploadPromises);
+    res.json({ success: true, files: urls });
+  } catch (error) {
+    console.error('Upload error:', error);
+    res.status(500).json({ error: 'Upload failed: ' + error.message });
   }
 });
 
