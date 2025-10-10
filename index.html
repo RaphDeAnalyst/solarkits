@@ -81,16 +81,16 @@
                             <a href="/" class="nav__link nav__link--active">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="pages/blog.html" class="nav__link">Blog</a>
+                            <a href="/blog" class="nav__link">Blog</a>
                         </li>
                         <li class="nav__item">
-                            <a href="pages/categories.html" class="nav__link">Shop</a>
+                            <a href="/categories" class="nav__link">Shop</a>
                         </li>
                         <li class="nav__item">
-                            <a href="pages/about.html" class="nav__link">About</a>
+                            <a href="/about" class="nav__link">About</a>
                         </li>
                         <li class="nav__item">
-                            <a href="pages/contact.html" class="nav__link">Contact</a>
+                            <a href="/contact" class="nav__link">Contact</a>
                         </li>
                     </ul>
 
@@ -193,7 +193,7 @@
                     </div>
                 </div>
                 <div style="text-align: center; margin-top: var(--spacing-xl);">
-                    <a href="pages/blog.html" class="btn btn--primary">View All Articles</a>
+                    <a href="/blog" class="btn btn--primary">View All Articles</a>
                 </div>
             </div>
         </section>
@@ -269,10 +269,10 @@
                     <h3 class="footer__title">Quick Links</h3>
                     <ul class="footer__links">
                         <li><a href="/">Home</a></li>
-                        <li><a href="pages/blog.html">Blog</a></li>
-                        <li><a href="pages/categories.html">Shop</a></li>
-                        <li><a href="pages/about.html">About Us</a></li>
-                        <li><a href="pages/contact.html">Contact</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/categories">Shop</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact</a></li>
                     </ul>
                 </div>
 
@@ -280,9 +280,9 @@
                 <div class="footer__column">
                     <h3 class="footer__title">Legal</h3>
                     <ul class="footer__links">
-                        <li><a href="pages/disclaimer.html">Affiliate Disclaimer</a></li>
-                        <li><a href="pages/privacy.html">Privacy Policy</a></li>
-                        <li><a href="pages/terms.html">Terms of Service</a></li>
+                        <li><a href="/disclaimer">Affiliate Disclaimer</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
                     </ul>
                 </div>
 
@@ -387,7 +387,7 @@
         function createBlogCard(post) {
             return `
                 <div class="blog-card">
-                    <a href="pages/blog-post-template.html?post=${post.id}" class="blog-card__link">
+                    <a href="/blog/${post.slug}" class="blog-card__link">
                         <div class="blog-card__image">
                             <img src="${post.featuredImage}" alt="${escapeHtml(post.title)}" loading="lazy">
                             <span class="blog-card__category">${escapeHtml(post.category)}</span>

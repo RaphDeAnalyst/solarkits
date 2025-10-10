@@ -1,3 +1,30 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "id": "blog-001",
+      "slug": "getting-started-with-solar-energy",
+      "title": "Getting Started with Solar Energy",
+      "excerpt": "Learn the basics of solar energy and how to start your journey towards clean, renewable power for your home.",
+      "content": "<p>Solar energy is one of the most accessible forms of renewable energy available today. Whether you're looking to reduce your electricity bills or minimize your environmental impact, solar power offers a sustainable solution.</p><h2>Why Choose Solar?</h2><p>Solar panels convert sunlight into electricity, providing clean energy that can power your entire home. With advances in technology, solar systems have become more efficient and affordable than ever.</p><h2>Getting Started</h2><p>The first step is to assess your energy needs and evaluate your property's solar potential. Consider factors like roof orientation, shading, and local climate conditions.</p>",
+      "featuredImage": "https://via.placeholder.com/1200x675/FF9800/FFFFFF?text=Solar+Energy+Guide",
+      "category": "Going Solar",
+      "author": "Solar Expert",
+      "date": "2025-10-10",
+      "featured": true,
+      "tags": ["solar basics", "getting started", "renewable energy"]
+    },
+    {
+      "id": "blog-002",
+      "slug": "understanding-solar-batteries",
+      "title": "Understanding Solar Batteries: A Complete Guide",
+      "excerpt": "Discover how solar batteries work and why they're essential for maximizing your solar investment.",
+      "content": "<p>Solar batteries are revolutionizing home energy storage. They allow you to store excess solar energy generated during the day for use at night or during power outages.</p><h2>How Solar Batteries Work</h2><p>When your solar panels produce more electricity than your home needs, the excess is stored in batteries instead of being sent back to the grid.</p><h2>Benefits of Battery Storage</h2><p>Battery storage provides energy independence, backup power during outages, and can help you maximize your solar savings by reducing reliance on grid power during peak hours.</p>",
+      "featuredImage": "https://via.placeholder.com/1200x675/4CAF50/FFFFFF?text=Solar+Batteries",
+      "category": "Solar Facts and Questions",
+      "author": "Energy Specialist",
+      "date": "2025-10-08",
+      "featured": false,
+      "tags": ["solar batteries", "energy storage", "solar accessories"]
+    }
+  ]
 }

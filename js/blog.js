@@ -90,7 +90,7 @@
     card.setAttribute('data-category', post.category);
 
     card.innerHTML = `
-      <a href="blog-post-template.html?post=${post.id}" class="blog-card__link">
+      <a href="/blog/${post.slug}" class="blog-card__link">
         <div class="blog-card__image">
           <img src="${post.featuredImage}" alt="${escapeHtml(post.title)}" loading="lazy">
           <span class="blog-card__category">${escapeHtml(post.category)}</span>

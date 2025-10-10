@@ -16,6 +16,9 @@ const { put } = require('@vercel/blob');
 
 const app = express();
 
+// Trust proxy - Required for Vercel and rate limiting
+app.set('trust proxy', 1);
+
 // Security headers
 app.use(helmet({
   contentSecurityPolicy: false
@@ -56,13 +59,27 @@ const upload = multer({
 const PRODUCTS_FILE = path.join(__dirname, '..', 'data', 'products.json');
 const BLOG_FILE = path.join(__dirname, '..', 'data', 'blog.json');
 
-// Helper functions (using Vercel KV for persistent storage)
+// Helper functions (using Vercel KV for persistent storage, fallback to local files in dev)
 async function readProducts() {
   try {
+    // Try KV first (production)
     const data = await kv.get('products');
-    return data || { products: [] };
+    if (data) return data;
+
+    // Fallback to local file (development)
+    if (fs.existsSync(PRODUCTS_FILE)) {
+      const fileData = JSON.parse(fs.readFileSync(PRODUCTS_FILE, 'utf8'));
+      return fileData;
+    }
+    return { products: [] };
   } catch (error) {
     console.error('Error reading products:', error);
+    // Try local file as final fallback
+    try {
+      if (fs.existsSync(PRODUCTS_FILE)) {
+        return JSON.parse(fs.readFileSync(PRODUCTS_FILE, 'utf8'));
+      }
+    } catch (e) {}
     return { products: [] };
   }
 }
@@ -73,16 +90,36 @@ async function writeProducts(data) {
     return true;
   } catch (error) {
     console.error('Error writing products:', error);
-    return false;
+    // Fallback to local file in development
+    try {
+      fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(data, null, 2));
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
 
 async function readBlogPosts() {
   try {
+    // Try KV first (production)
     const data = await kv.get('blog');
-    return data || { posts: [] };
+    if (data) return data;
+
+    // Fallback to local file (development)
+    if (fs.existsSync(BLOG_FILE)) {
+      const fileData = JSON.parse(fs.readFileSync(BLOG_FILE, 'utf8'));
+      return fileData;
+    }
+    return { posts: [] };
   } catch (error) {
     console.error('Error reading blog posts:', error);
+    // Try local file as final fallback
+    try {
+      if (fs.existsSync(BLOG_FILE)) {
+        return JSON.parse(fs.readFileSync(BLOG_FILE, 'utf8'));
+      }
+    } catch (e) {}
     return { posts: [] };
   }
 }
@@ -93,7 +130,13 @@ async function writeBlogPosts(data) {
     return true;
   } catch (error) {
     console.error('Error writing blog posts:', error);
-    return false;
+    // Fallback to local file in development
+    try {
+      fs.writeFileSync(BLOG_FILE, JSON.stringify(data, null, 2));
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
 

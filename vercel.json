@@ -3,6 +3,54 @@
     {
       "source": "/api/:path*",
       "destination": "/api/[...path]"
+    },
+    {
+      "source": "/blog",
+      "destination": "/pages/blog.html"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/pages/blog-post.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/pages/about.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/pages/contact.html"
+    },
+    {
+      "source": "/categories",
+      "destination": "/pages/categories.html"
+    },
+    {
+      "source": "/solar-kits",
+      "destination": "/pages/solar-kits.html"
+    },
+    {
+      "source": "/solar-accessories",
+      "destination": "/pages/solar-accessories.html"
+    },
+    {
+      "source": "/home-energy",
+      "destination": "/pages/home-energy.html"
+    },
+    {
+      "source": "/outdoor-solar",
+      "destination": "/pages/outdoor-solar.html"
+    },
+    {
+      "source": "/disclaimer",
+      "destination": "/pages/disclaimer.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/pages/privacy.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/pages/terms.html"
     }
   ]
 }

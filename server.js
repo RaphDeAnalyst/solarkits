@@ -17,6 +17,9 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy - Required for Vercel and rate limiting
+app.set('trust proxy', 1);
+
 // Security & Performance Middleware
 // Compression for all responses
 app.use(compression({
@@ -56,6 +59,36 @@ app.use('/api/', apiLimiter);
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// ==================== CLEAN URL REWRITES ====================
+// Rewrite clean URLs to actual HTML files (matches vercel.json)
+app.use((req, res, next) => {
+  const rewrites = {
+    '/blog': '/pages/blog.html',
+    '/about': '/pages/about.html',
+    '/contact': '/pages/contact.html',
+    '/categories': '/pages/categories.html',
+    '/solar-kits': '/pages/solar-kits.html',
+    '/solar-accessories': '/pages/solar-accessories.html',
+    '/home-energy': '/pages/home-energy.html',
+    '/outdoor-solar': '/pages/outdoor-solar.html',
+    '/disclaimer': '/pages/disclaimer.html',
+    '/privacy': '/pages/privacy.html',
+    '/terms': '/pages/terms.html'
+  };
+
+  // Handle exact matches
+  if (rewrites[req.path]) {
+    req.url = rewrites[req.path];
+  }
+
+  // Handle blog post URLs: /blog/slug -> /pages/blog-post.html
+  else if (req.path.startsWith('/blog/') && req.path !== '/blog/') {
+    req.url = '/pages/blog-post.html';
+  }
+
+  next();
+});
 
 // Static files with caching headers
 app.use(express.static('.', {
