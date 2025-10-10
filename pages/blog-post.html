@@ -196,7 +196,7 @@
             </div>
 
             <!-- Recommended Products Section -->
-            <section class="recommended-products">
+            <section class="recommended-products" id="recommended-products-section" style="display: none;">
                 <div class="container">
                     <h2 class="section__title">Recommended Products</h2>
                     <p class="recommended-products__subtitle">Based on this article, you might be interested in these solar products:</p>
@@ -396,9 +396,12 @@
 
                 const recommendedProducts = data.products.filter(p => productIds.includes(p.id));
                 const grid = document.getElementById('recommended-products-grid');
+                const section = document.getElementById('recommended-products-section');
 
                 if (recommendedProducts.length > 0) {
                     grid.innerHTML = recommendedProducts.slice(0, 3).map(createProductCard).join('');
+                    // Show the section only if products were found
+                    section.style.display = 'block';
                 }
             } catch (error) {
                 console.error('Error loading recommended products:', error);
