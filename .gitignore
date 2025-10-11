@@ -27,6 +27,9 @@ build/
 *.min.js
 *.min.css
 
+# Vercel
+.vercel/
+
 # Logs
 logs/
 *.log
