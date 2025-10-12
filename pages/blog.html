@@ -34,21 +34,21 @@
     <!-- Header & Navigation -->
     <header class="header" id="header" role="banner">
         <div class="container">
-            <nav class="nav">
+            <nav class="nav" role="navigation" aria-label="Main navigation">
                 <div class="nav__logo">
-                    <a href="/" class="logo">
+                    <a href="/" class="logo" aria-label="Solarkits Home">
                         <img src="../images/site/logo.svg" alt="Solarkits Logo" class="logo__icon" width="40" height="40">
                         <span class="logo__text">solarkits</span>
                     </a>
                 </div>
 
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
+                <div class="nav__menu" id="nav-menu" role="dialog" aria-label="Mobile navigation menu">
+                    <ul class="nav__list" role="list">
                         <li class="nav__item">
                             <a href="/" class="nav__link">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="/blog" class="nav__link nav__link--active">Blog</a>
+                            <a href="/blog" class="nav__link nav__link--active" aria-current="page">Blog</a>
                         </li>
                         <li class="nav__item">
                             <a href="/categories" class="nav__link">Shop</a>
@@ -61,6 +61,7 @@
                         </li>
                     </ul>
 
+                    <!-- Desktop Search (visible on desktop only) -->
                     <div class="nav__search">
                         <input
                             type="search"
@@ -76,14 +77,25 @@
                     </div>
                 </div>
 
-                <div class="nav__toggle" id="nav-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <!-- Mobile Search Icon (visible on mobile only, outside hamburger) -->
+                <button class="nav__search-icon" id="mobile-search-toggle" aria-label="Toggle search">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </button>
+
+                <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                </button>
             </nav>
         </div>
     </header>
+
+    <!-- Mobile Menu Backdrop -->
+    <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
 
     <!-- Main Content -->
     <main class="main" id="main-content" role="main">

@@ -14,32 +14,144 @@
   const newsletterForm = document.getElementById('newsletter-form');
 
   /**
-   * Mobile Navigation Toggle
+   * Mobile Navigation Toggle - Enhanced with Accessibility
    */
   function initMobileNav() {
     if (!navToggle || !navMenu) return;
 
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('show');
-      navToggle.classList.toggle('active');
+    const navBackdrop = document.getElementById('nav-backdrop');
+    const body = document.body;
+
+    // Toggle menu function
+    function toggleMenu() {
+      const isOpen = navMenu.classList.contains('show');
+
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    // Open menu
+    function openMenu() {
+      navMenu.classList.add('show');
+      navToggle.classList.add('active');
+      navBackdrop?.classList.add('show');
+      body.classList.add('nav-open');
+
+      // Update ARIA
+      navToggle.setAttribute('aria-expanded', 'true');
+      navMenu.setAttribute('aria-hidden', 'false');
+
+      // Focus first link for accessibility
+      const firstLink = navMenu.querySelector('.nav__link');
+      setTimeout(() => firstLink?.focus(), 300);
+    }
+
+    // Close menu
+    function closeMenu() {
+      navMenu.classList.remove('show');
+      navToggle.classList.remove('active');
+      navBackdrop?.classList.remove('show');
+      body.classList.remove('nav-open');
+
+      // Update ARIA
+      navToggle.setAttribute('aria-expanded', 'false');
+      navMenu.setAttribute('aria-hidden', 'true');
+    }
+
+    // Toggle button click
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
     });
 
-    // Close menu when clicking nav links
+    // Close menu when clicking nav links (auto-close on navigation)
     const navLinks = document.querySelectorAll('.nav__link');
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
-        navMenu.classList.remove('show');
-        navToggle.classList.remove('active');
+        setTimeout(closeMenu, 150); // Slight delay for visual feedback
       });
     });
 
-    // Close menu when clicking outside
+    // Close menu when clicking backdrop
+    navBackdrop?.addEventListener('click', closeMenu);
+
+    // Close menu when clicking outside (desktop)
     document.addEventListener('click', (e) => {
-      if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-        navMenu.classList.remove('show');
-        navToggle.classList.remove('active');
+      if (window.innerWidth > 768) return; // Only on mobile
+
+      if (!navMenu.contains(e.target) &&
+          !navToggle.contains(e.target) &&
+          navMenu.classList.contains('show')) {
+        closeMenu();
       }
     });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu.classList.contains('show')) {
+        closeMenu();
+        navToggle.focus(); // Return focus to toggle button
+      }
+    });
+
+    // Handle window resize - close menu if resizing to desktop
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth > 768 && navMenu.classList.contains('show')) {
+          closeMenu();
+        }
+      }, 250);
+    });
+
+    // Mobile search toggle
+    const searchToggle = document.getElementById('mobile-search-toggle');
+    const navSearch = document.querySelector('.nav__search');
+
+    if (searchToggle && navSearch) {
+      searchToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isShowing = navSearch.classList.contains('nav__search--mobile-visible');
+
+        if (isShowing) {
+          navSearch.classList.remove('nav__search--mobile-visible');
+        } else {
+          navSearch.classList.add('nav__search--mobile-visible');
+
+          // Focus search input when opened
+          const searchInput = navSearch.querySelector('input');
+          setTimeout(() => searchInput?.focus(), 100);
+        }
+
+        // Close menu if open
+        if (navMenu.classList.contains('show')) {
+          closeMenu();
+        }
+      });
+
+      // Close search when clicking outside on mobile
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth > 768) return;
+
+        if (!navSearch.contains(e.target) &&
+            !searchToggle.contains(e.target) &&
+            navSearch.classList.contains('nav__search--mobile-visible')) {
+          navSearch.classList.remove('nav__search--mobile-visible');
+        }
+      });
+
+      // Close search on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navSearch.classList.contains('nav__search--mobile-visible')) {
+          navSearch.classList.remove('nav__search--mobile-visible');
+          searchToggle.focus();
+        }
+      });
+    }
   }
 
   /**

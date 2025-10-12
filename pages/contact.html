@@ -27,23 +27,26 @@
                         <span class="logo__text">solarkits</span>
                     </a>
                 </div>
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
+                <div class="nav__menu" id="nav-menu" role="dialog" aria-label="Mobile navigation menu">
+                    <ul class="nav__list" role="list">
                         <li class="nav__item"><a href="/" class="nav__link">Home</a></li>
                         <li class="nav__item"><a href="/blog" class="nav__link">Blog</a></li>
                         <li class="nav__item"><a href="/categories" class="nav__link">Shop</a></li>
                         <li class="nav__item"><a href="/about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="/contact" class="nav__link nav__link--active">Contact</a></li>
+                        <li class="nav__item"><a href="/contact" class="nav__link nav__link--active" aria-current="page">Contact</a></li>
                     </ul>
                 </div>
-                <div class="nav__toggle" id="nav-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                </button>
             </nav>
         </div>
     </header>
+
+    <!-- Mobile Menu Backdrop -->
+    <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
 
     <main class="main" id="main-content" role="main">
         <section class="hero" style="padding: 3rem 0;">

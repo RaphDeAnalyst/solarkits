@@ -17,6 +17,8 @@
   const productsCount = document.getElementById('products-count');
   const categoryButtons = document.querySelectorAll('.category-btn');
   const noResultsEl = document.getElementById('no-results');
+  const searchInput = document.getElementById('search-input');
+  const searchInputMobile = document.getElementById('search-input-mobile');
 
   /**
    * Load products from JSON file
@@ -355,12 +357,70 @@
   }
 
   /**
+   * Initialize Search
+   */
+  function initializeSearch() {
+    // Setup search handler function
+    function handleSearchInput(inputElement) {
+      if (!inputElement) return;
+
+      let searchTimeout;
+
+      inputElement.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+
+        searchTimeout = setTimeout(() => {
+          const searchTerm = this.value.trim().toLowerCase();
+
+          if (searchTerm.length === 0) {
+            // Reset to current category filter
+            filterByCategory(currentCategory);
+            return;
+          }
+
+          // Get products from current category filter
+          let productsToSearch = currentCategory === 'all'
+            ? [...allProducts]
+            : allProducts.filter(product => product.category === currentCategory);
+
+          // Apply search
+          filteredProducts = searchProducts(productsToSearch, searchTerm);
+          renderProducts();
+          updateProductCount();
+
+          console.log(`🔍 Product Search: "${searchTerm}" - ${filteredProducts.length} results`);
+        }, 300); // Debounce delay
+      });
+    }
+
+    // Initialize both desktop and mobile search inputs
+    handleSearchInput(searchInput);
+    handleSearchInput(searchInputMobile);
+  }
+
+  /**
+   * Search Products by Term
+   */
+  function searchProducts(products, searchTerm) {
+    return products.filter(product => {
+      const searchableText = `
+        ${product.name}
+        ${product.category}
+        ${product.price.display}
+      `.toLowerCase();
+
+      return searchableText.includes(searchTerm.toLowerCase());
+    });
+  }
+
+  /**
    * Initialize categories page module
    */
   function init() {
     console.log('🛍️ Categories page (all products) - Initializing...');
 
     initCategoryFilters();
+    initializeSearch();
     loadProducts();
   }
 

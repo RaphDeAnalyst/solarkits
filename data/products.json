@@ -1,3 +1,74 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "solar-001",
+      "name": "100W Portable Solar Panel Kit",
+      "category": "solar-kits",
+      "price": {
+        "amount": 129.99,
+        "currency": "USD",
+        "display": "Starting at $129.99"
+      },
+      "image": {
+        "thumb": "images/products/solar-panel-100w-thumb.jpg",
+        "full": "images/products/solar-panel-100w.jpg",
+        "gallery": [
+          "images/products/solar-panel-100w.jpg",
+          "images/products/solar-panel-100w-alt1.jpg"
+        ]
+      },
+      "affiliates": {
+        "amazon": {
+          "available": true,
+          "url": "https://www.amazon.com/dp/B08EXAMPLE"
+        },
+        "aliexpress": {
+          "available": true,
+          "url": "https://www.aliexpress.com/item/EXAMPLE.html"
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-10-11",
+        "lastUpdated": "2025-10-11",
+        "lastPriceCheck": "2025-10-11",
+        "clicks": 0,
+        "featured": true
+      }
+    },
+    {
+      "id": "solar-002",
+      "name": "200Ah Lithium Solar Battery",
+      "category": "solar-accessories",
+      "price": {
+        "amount": 399.99,
+        "currency": "USD",
+        "display": "Starting at $399.99"
+      },
+      "image": {
+        "thumb": "images/products/solar-battery-200ah-thumb.jpg",
+        "full": "images/products/solar-battery-200ah.jpg",
+        "gallery": [
+          "images/products/solar-battery-200ah.jpg",
+          "images/products/solar-battery-200ah-alt1.jpg"
+        ]
+      },
+      "affiliates": {
+        "amazon": {
+          "available": true,
+          "url": "https://www.amazon.com/dp/B08EXAMPLE2"
+        },
+        "aliexpress": {
+          "available": true,
+          "url": "https://www.aliexpress.com/item/EXAMPLE2.html"
+        }
+      },
+      "metadata": {
+        "dateAdded": "2025-10-11",
+        "lastUpdated": "2025-10-11",
+        "lastPriceCheck": "2025-10-11",
+        "clicks": 0,
+        "featured": false
+      }
+    }
+  ]
 }
